@@ -104,6 +104,7 @@
 			add_output('<br /><br /><a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_view_script&script_id='.$script_id.'&vps_id='.$id.'" title="Back">Back</a>');
 		} elseif(isset($GLOBALS['tf']->variables->request['action']) && !empty($GLOBALS['tf']->variables->request['action'])) {
 			$script_idd = isset($GLOBALS['tf']->variables->request['script_id']) ? $GLOBALS['tf']->variables->request['script_id'] : '';
+			function_requirements($GLOBALS['tf']->variables->request['action']);
 			$GLOBALS['tf']->variables->request['action']($host, $webuzo_user, $webuzo_password, $script_idd);
 		} else {
 			add_output('<h2>List of Available Softwares</h2>');
