@@ -11,11 +11,13 @@
 function webuzo_view_script($host, $user, $pass, $script_id) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
-	$response1 = get_all_scripts( $user, $pass, $host);
+	function_requirements('webuzo_api_call');
+	function_requirements('webuzo_get_all_scripts');
+	$response1 = webuzo_get_all_scripts( $user, $pass, $host);
 	$script_details = $response1[$script_id];
 	if($script_details['type'] === 'js') $act = 'js'; elseif ($script_details['type'] === 'perl') $act = 'perl'; else $act = 'software';
 	$act = "&act=$act&soft=$script_id";
-	$response = api_call($host, $user, $pass, $act);
+	$response = webuzo_api_call($host, $user, $pass, $act);
 	$response = myadmin_unstringify($response);
 
 	$table = '<table width="700px;" cellspacing="1" cellpadding="4" border="0">

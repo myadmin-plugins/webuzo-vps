@@ -6,7 +6,7 @@
  * @param $host
  * @return mixed
  */
-function get_all_scripts($user, $pass, $host) {
+function webuzo_get_all_scripts($user, $pass, $host) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$new = new Webuzo_API($user, $pass, $host);
 	$new->list_installed_scripts();
@@ -20,7 +20,7 @@ function get_all_scripts($user, $pass, $host) {
  * @param $pass
  * @param $install_id
  */
-function add_backup($host, $user, $pass, $install_id) {
+function webuzo_add_backup($host, $user, $pass, $install_id) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	add_output('<h2>Create Backup</h2>');
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
@@ -32,7 +32,7 @@ function add_backup($host, $user, $pass, $install_id) {
 		'backup_datadir' => '1',
 		'backup_db' => '1'
 	];
-	$response = api_call($host, $user, $pass, $act, $last_params,$post);
+	$response = webuzo_api_call($host, $user, $pass, $act, $last_params,$post);
 	$response = myadmin_unstringify($response);
 	if(!empty($response['done'])) {
 		add_output('Software back up created successfully!');
@@ -49,7 +49,7 @@ function add_backup($host, $user, $pass, $install_id) {
  * @param $pass
  * @param $back_up_name
  */
-function download_backup($host, $user, $pass, $back_up_name) {
+function webuzo_download_backup($host, $user, $pass, $back_up_name) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$new = new Webuzo_API($user, $pass, $host);
@@ -74,7 +74,7 @@ function download_backup($host, $user, $pass, $back_up_name) {
  * @param $pass
  * @param $back_up_name
  */
-function remove_backup($host, $user, $pass, $back_up_name) {
+function webuzo_remove_backup($host, $user, $pass, $back_up_name) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$act = 'backups';
@@ -86,7 +86,7 @@ function remove_backup($host, $user, $pass, $back_up_name) {
 		'backup_db' => '1', // Pass this if you want to backup the database
 	];
 	add_output('<h2>Backups</h2>');
-	$response = api_call($host, $user, $pass, $act, $last_params, $post);
+	$response = webuzo_api_call($host, $user, $pass, $act, $last_params, $post);
 	$response = myadmin_unstringify($response);
 	if(!empty($response['done'])) {
 		add_output('Deleted backup successfully');
@@ -102,7 +102,7 @@ function remove_backup($host, $user, $pass, $back_up_name) {
  * @param $pass
  * @param $back_up_name
  */
-function restore_backup($host, $user, $pass, $back_up_name) {
+function webuzo_restore_backup($host, $user, $pass, $back_up_name) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$act = 'restore';
@@ -114,7 +114,7 @@ function restore_backup($host, $user, $pass, $back_up_name) {
 		'restore_db ' => '1', // Pass this if you want to backup the database
 	];
 	add_output('<h2>Backups</h2>');
-	$response = api_call($host, $user, $pass, $act, $last_params, $post);
+	$response = webuzo_api_call($host, $user, $pass, $act, $last_params, $post);
 	$response = (!empty($response)) ? myadmin_unstringify($response) : '';
 	if(!empty($response['done'])) {
 		add_output('Restored backup successfully');
@@ -134,7 +134,7 @@ function restore_backup($host, $user, $pass, $back_up_name) {
  * @param array $post
  * @return mixed
  */
-function api_call($host, $user, $pass, $act, $last_params = null, $post = []) {
+function webuzo_api_call($host, $user, $pass, $act, $last_params = null, $post = []) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	// The URL
 	$url = "http://$user:$pass@$host:2002/index.php?".
@@ -160,7 +160,7 @@ function api_call($host, $user, $pass, $act, $last_params = null, $post = []) {
  * @param $bytes
  * @return string
  */
-function formatSizeUnits($bytes) {
+function webuzo_format_units_size($bytes) {
 	if ($bytes >= 1073741824) {
 		$bytes = number_format($bytes / 1073741824, 2).' GB';
 	} elseif ($bytes >= 1048576) {

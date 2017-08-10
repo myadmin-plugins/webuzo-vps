@@ -9,12 +9,14 @@ function webuzo_list_installed_scripts($host, $user, $pass) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$act = 'installations';
-	$response = api_call($host, $user, $pass, $act);
+	function_requirements('webuzo_api_call');
+	function_requirements('webuzo_get_all_scripts');
+	$response = webuzo_api_call($host, $user, $pass, $act);
 	$response = (!empty($response)) ? myadmin_unstringify($response) : '';
 	add_output('<h2>Installed Softwares</h2>');
 	if(!empty($response['installations'])) {
 		$installations = $response['installations'];
-		$softs = get_all_scripts($user, $pass, $host);
+		$softs = webuzo_get_all_scripts($user, $pass, $host);
 		if(!empty($response['installations'])) {
 			$table = '<table class="sai_divroundshad" width="100%">
 						<tr>
@@ -37,7 +39,7 @@ function webuzo_list_installed_scripts($host, $user, $pass) {
 							<td width='10'>{$details['ver']}</td>
 						";
 					$table .= "<td width='25' >";
-					$table .= '<a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=add_backup&script_id='.$install_id.'&vps_id='.$vps_id.'" title="Back Up Software">Backup</a>';
+					$table .= '<a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_add_backup&script_id='.$install_id.'&vps_id='.$vps_id.'" title="Back Up Software">Backup</a>';
 					$table .= '<a title="Remove Software" onclick="return confirm(\'Are you sure want to remove '.$softw['name'].' ?\');" target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_remove_script&script_id='.$install_id.'&vps_id='.$vps_id.'"> Remove </a>';
 					$table .= "<a target='SERVICEFrame1' href='iframe.php?choice=none.webuzo_scripts&action=webuzo_edit_installation&script_id=".$install_id.'&vps_id='.$vps_id . "' title='Edit Installation'>Edit</a>";
 					$table .= "</td></tr><tr><td colspan='5'>&nbsp;</td></tr>";

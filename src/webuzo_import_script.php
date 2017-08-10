@@ -21,7 +21,8 @@ function webuzo_import_script($host, $user, $pass, $script_id) {
 			'softdomain'    =>$GLOBALS['tf']->variables->request['softdomain'],
 			'softdirectory' =>$GLOBALS['tf']->variables->request['softdirectory']
 		];
-		$response = api_call($host, $user, $pass, $act, $last_params, $post);
+		function_requirements('webuzo_api_call');
+		$response = webuzo_api_call($host, $user, $pass, $act, $last_params, $post);
 		$response = (!empty($response)) ? myadmin_unstringify($response) : '';
 		if(!empty($response['done'])) {
 			add_output('Script imported successfully');

@@ -67,6 +67,13 @@ class Plugin {
 		$loader->add_requirement('webuzo_view_sysapps', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_view_sysapps.php');
 		$loader->add_requirement('webuzo_list_installed_sysapps', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_list_installed_sysapps.php');
 		$loader->add_requirement('webuzo_update_logo', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_update_logo.php');
+		$loader->add_requirement('webuzo_get_all_scripts', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo.functions.inc.php');
+		$loader->add_requirement('webuzo_add_backup', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo.functions.inc.php');
+		$loader->add_requirement('webuzo_download_backup', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo.functions.inc.php');
+		$loader->add_requirement('webuzo_remove_backup', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo.functions.inc.php');
+		$loader->add_requirement('webuzo_restore_backup', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo.functions.inc.php');
+		$loader->add_requirement('webuzo_api_call', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo.functions.inc.php');
+		$loader->add_requirement('webuzo_format_units_size', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo.functions.inc.php');
 	}
 
 	/**

@@ -18,7 +18,8 @@ function webuzo_remove_script($host, $user, $pass, $script_id) {
 		'remove_db' => '1', // Pass this if you want the database to be removed
 		'remove_dbuser' => '1' // Pass this if you want the database user to be removed
 	];
-	$response = api_call($host, $user, $pass, $act, $last_params, $post);
+	function_requirements('webuzo_api_call');
+	$response = webuzo_api_call($host, $user, $pass, $act, $last_params, $post);
 	$response = myadmin_unstringify($response);
 	add_output('<h2>Remove Software</h2>');
 	if(!empty($response['done'])) {

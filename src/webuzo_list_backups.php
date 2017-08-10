@@ -9,7 +9,10 @@ function webuzo_list_backups($host, $user, $pass) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$act = 'backups';
-	$response = api_call($host, $user, $pass, $act);
+	function_requirements('webuzo_api_call');
+	function_requirements('webuzo_format_units_size');
+	function_requirements('webuzo_get_all_scripts');
+	$response = webuzo_api_call($host, $user, $pass, $act);
 	$response = myadmin_unstringify($response);
 	add_output('<h2>Backups</h2>');
 	if(!empty($response['backups'])) {
@@ -21,7 +24,7 @@ function webuzo_list_backups($host, $user, $pass) {
 						<th>Version</th>
 						<th>Options</th>
 					</tr>';
-		$all_softs = get_all_scripts($user, $pass, $host);
+		$all_softs = webuzo_get_all_scripts($user, $pass, $host);
 		foreach ($response['backups'] as $softid => $details) {
 			foreach ($details as $install_id => $backups) {
 				$table .= '<tr><td class="sai_heading_full" colspan="5"><span style="float:left;">'.$all_softs[$softid]['name'].'</span></td></tr>';
@@ -29,12 +32,12 @@ function webuzo_list_backups($host, $user, $pass) {
 					$table .= '<tr><td>';
 					$table .= ($key == 0) ? '<a href="'.$backup['softurl'].'">'.$backup['softurl'].'</a>' : '&nbsp;';
 					$table .= '</td><td>'.$backup['name'].'</td>
-						<td>'.formatSizeUnits($backup['size']).'</td>
+						<td>'.webuzo_format_units_size($backup['size']).'</td>
 						<td>'.$backup['ver'].'</td>
 						<td>
-							<a title="Download Backup" href="index.php?choice=none.webuzo_scripts&action=download_backup&script_id='.$backup['name'].'&vps_id='.$vps_id.'">Download</a>
-							<a target="SERVICEFrame1" title="Restore Backup" href="iframe.php?choice=none.webuzo_scripts&action=restore_backup&script_id='.$backup['name'].'&vps_id='.$vps_id.'">Restore</a>
-							<a onclick="return confirm(\'Are you sure want to delete '.$backup['name'].' ?\');" target="SERVICEFrame1" title="Delete Backup" href="iframe.php?choice=none.webuzo_scripts&action=remove_backup&script_id='.$backup['name'].'&vps_id='.$vps_id.'">Delete</a>
+							<a title="Download Backup" href="index.php?choice=none.webuzo_scripts&action=webuzo_download_backup&script_id='.$backup['name'].'&vps_id='.$vps_id.'">Download</a>
+							<a target="SERVICEFrame1" title="Restore Backup" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_restore_backup&script_id='.$backup['name'].'&vps_id='.$vps_id.'">Restore</a>
+							<a onclick="return confirm(\'Are you sure want to delete '.$backup['name'].' ?\');" target="SERVICEFrame1" title="Delete Backup" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_remove_backup&script_id='.$backup['name'].'&vps_id='.$vps_id.'">Delete</a>
 						</td>
 					</tr>';
 				}
