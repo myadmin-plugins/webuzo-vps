@@ -14,6 +14,7 @@ function webuzo_configure($id) {
 			myadmin_log('vps', 'info', 'VPS ID is not provided!', __LINE__, __FILE__);
 			return false;
 		}
+		function_requirements('webuzo_update_logo');
 		$logo_update_resp = webuzo_update_logo($service['vps_ip']);
 		$msg = (!empty($logo_update_resp)) ? 'Logo and text change is completed successfully!' : 'Logo and text change is not completed failed!';
 		myadmin_log('vps', 'info', $msg,__LINE__,__FILE__);
@@ -41,6 +42,7 @@ function webuzo_configure($id) {
 		$GLOBALS['tf']->accounts->set_db_module('vps');
 		$db->query("select * from history_log where history_owner = {$service['vps_custid']} and history_old_value = 'Webuzo Details' limit 1");
 		$user = 'admin';
+		function_requirements('webuzo_randomPassword');
 		$pass = webuzo_randomPassword();
 
 		$new = new Webuzo_API($user, $pass, $service['vps_ip']);
