@@ -51,7 +51,7 @@ class Plugin {
 	public static function getRequirements(GenericEvent $event) {
 		$loader = $event->getSubject();
 		$loader->add_requirement('webuzo_configure', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_configure.php');
-		$loader->add_requirement('webuzo_scripts', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_scripts.php');
+		$loader->add_page_requirement('webuzo_scripts', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_scripts.php');
 		$loader->add_requirement('webuzo_edit_installation', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_edit_installation.php');
 		$loader->add_requirement('webuzo_install_sysapp', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_install_sysapp.php');
 		$loader->add_requirement('webuzo_add_domain', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_add_domain.php');
