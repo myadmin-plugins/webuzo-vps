@@ -98,8 +98,8 @@ function webuzo_scripts() {
 		} else {
 		 add_output('Installation Failed<br/>Error details:<br />');
 		 $error_details = NULL;
-		 foreach ($res['error'] as $error_key => $error_value) {
-			$error_details .= $error_value.'<br />';
+		 foreach ($res['error'] as $errorKey => $errorValue) {
+			$error_details .= $errorValue.'<br />';
 		 }
 		 add_output($error_details);
 		}
