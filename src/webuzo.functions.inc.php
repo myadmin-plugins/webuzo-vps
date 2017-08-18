@@ -134,7 +134,7 @@ function webuzo_restore_backup($host, $user, $pass, $back_up_name) {
  * @param array $post
  * @return mixed
  */
-function webuzo_api_call($host, $user, $pass, $act, $last_params = null, $post = []) {
+function webuzo_api_call($host, $user, $pass, $act, $last_params = NULL, $post = []) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	// The URL
 	$url = "http://$user:$pass@$host:2002/index.php?".

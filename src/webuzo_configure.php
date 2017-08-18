@@ -2,7 +2,7 @@
 
 /**
  * @param $id
- * @return bool
+ * @return false|null
  */
 function webuzo_configure($id) {
 		include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
@@ -12,7 +12,7 @@ function webuzo_configure($id) {
 		$service = get_service($id, 'vps');
 		if(!$id){
 			myadmin_log('vps', 'info', 'VPS ID is not provided!', __LINE__, __FILE__);
-			return false;
+			return FALSE;
 		}
 		function_requirements('webuzo_update_logo');
 		$logo_update_resp = webuzo_update_logo($service['vps_ip']);
@@ -23,7 +23,7 @@ function webuzo_configure($id) {
 		$ns2 = 'cdns2.interserver.net';
 
 		//Webuzo license
-		$license_key = null;
+		$license_key = NULL;
 		$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 		$license_details = $noc->webuzoLicenses('', $service['vps_ip']);
 		if ($license_details['num_results'] > 0) {

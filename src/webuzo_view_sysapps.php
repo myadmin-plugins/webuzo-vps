@@ -8,7 +8,7 @@
  * @throws \Exception
  * @throws \SmartyException
  */
-function webuzo_view_sysapps($host = null, $user = null, $pass = null, $app_id = null) {
+function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id = NULL) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	add_output('<h2>Application Details</h2>');
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';

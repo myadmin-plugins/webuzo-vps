@@ -97,7 +97,7 @@ function webuzo_scripts() {
 		// Error
 		} else {
 		 add_output('Installation Failed<br/>Error details:<br />');
-		 $error_details = null;
+		 $error_details = NULL;
 		 foreach ($res['error'] as $error_key => $error_value) {
 			$error_details .= $error_value.'<br />';
 		 }
@@ -114,10 +114,10 @@ function webuzo_scripts() {
 		if(isset($GLOBALS['tf']->variables->request['search_script']) && !empty($GLOBALS['tf']->variables->request['search_script']) && verify_csrf_referrer(__LINE__, __FILE__)) {
 			$search_string = $GLOBALS['tf']->variables->request['search_script'];
 			$softfilter = $softs;
-			$softs = null;
+			$softs = NULL;
 			if(!empty($softfilter)) {
 				foreach ($softfilter as $key1 => $value1) {
-					if(stripos($value1['name'], $search_string) !== false) {
+					if(stripos($value1['name'], $search_string) !== FALSE) {
 						$softs[$key1] = $value1;
 					}
 				}

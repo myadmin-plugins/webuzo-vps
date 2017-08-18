@@ -7,7 +7,7 @@
  * @throws \Exception
  * @throws \SmartyException
  */
-function webuzo_list_sysapps($host=null, $user=null, $pass=null) {
+function webuzo_list_sysapps($host=NULL, $user=NULL, $pass=NULL) {
 		include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 		$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 		$user = isset($GLOBALS['tf']->variables->request['user']) ? $GLOBALS['tf']->variables->request['user'] : $user;
@@ -20,10 +20,10 @@ function webuzo_list_sysapps($host=null, $user=null, $pass=null) {
 		if(isset($GLOBALS['tf']->variables->request['search_script']) && !empty($GLOBALS['tf']->variables->request['search_script']) && verify_csrf_referrer(__LINE__,__FILE__)) {
 			$search_string = $GLOBALS['tf']->variables->request['search_script'];
 			$softfilter = $response;
-			$response = null;
+			$response = NULL;
 			if(!empty($softfilter)) {
 				foreach ($softfilter as $key1 => $value1) {
-					if(stripos($value1['fullname'], $search_string) !== false) {
+					if(stripos($value1['fullname'], $search_string) !== FALSE) {
 						$response[$key1] = $value1;
 					}
 				}

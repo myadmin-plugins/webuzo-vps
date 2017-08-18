@@ -4,7 +4,7 @@
  * @param null $host
  * @return mixed
  */
-function webuzo_update_logo($host = null) {
+function webuzo_update_logo($host = NULL) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$url = "http://$host:2004/install.php?preparelogo=https://my.interserver.net/templates/my/logo.png&sitename=Bread Basket";
 	// Set the curl parameters.

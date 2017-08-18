@@ -28,7 +28,7 @@ function webuzo_import_script($host, $user, $pass, $script_id) {
 			add_output('Script imported successfully');
 		} else {
 			add_output('Error can\'t import script. <br />Error details:<br />');
-			$error_details = null;
+			$error_details = NULL;
 			foreach($response['error'] as $error_code => $details) {
 				$error_details .= $details.'<br />';
 			}

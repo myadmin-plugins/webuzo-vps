@@ -5,7 +5,7 @@
  * @param null $user
  * @param null $pass
  */
-function webuzo_list_domains($host = null, $user = null, $pass = null) {
+function webuzo_list_domains($host = NULL, $user = NULL, $pass = NULL) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$new = new Webuzo_API($user, $pass, $host);

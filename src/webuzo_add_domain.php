@@ -7,7 +7,7 @@
  * @throws \Exception
  * @throws \SmartyException
  */
-function webuzo_add_domain($host=null, $user=null, $pass=null) {
+function webuzo_add_domain($host=NULL, $user=NULL, $pass=NULL) {
 		include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 		add_output('<h2>Add Domain</h2>');
 		$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
@@ -49,7 +49,7 @@ function webuzo_add_domain($host=null, $user=null, $pass=null) {
 			$tableObj->add_hidden('vps_id', "$vps_id");
 
 			$tableObj->add_field('Domain','l');
-			$tableObj->add_field($tableObj->make_input('domain','','40',false,'autocomplete ="off"'),'l');
+			$tableObj->add_field($tableObj->make_input('domain','','40',FALSE,'autocomplete ="off"'),'l');
 			$tableObj->add_row();
 			$tableObj->add_field('Domain Path','l');
 			$tableObj->add_field('<input value="/home/admin/" size="10" readonly/>'.$tableObj->make_input('domain_path','www/','30'),'l');

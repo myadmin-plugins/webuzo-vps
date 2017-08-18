@@ -5,7 +5,7 @@
  * @param null $user
  * @param null $pass
  */
-function webuzo_list_installed_sysapps($host = null, $user = null, $pass = null) {
+function webuzo_list_installed_sysapps($host = NULL, $user = NULL, $pass = NULL) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	add_output('<h2>System Applications</h2>');
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
