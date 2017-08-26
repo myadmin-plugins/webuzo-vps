@@ -23,7 +23,7 @@ function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id =
 		<td width="90%" colspan="4" class="sai_process_heading">'.$script_details['name'].'</td>
 	</tr>
 	<tr>
-		<td width="20%" valign="top" style="text-align: left;">
+		<td width="20%" style="vertical-align: top;" style="text-align: left;">
 			Version : <font size="2"><b>'.$script_details['version'].'</b></font>
 		</td>
 		<td width="60%" style="text-align: left;">
@@ -79,7 +79,7 @@ $table .= '
 <table>
 	<tr>
 		<td></td>
-		<td valign="top" style="padding:10px;">'.preg_replace("/<img[^>]+\>/i", ' ', $script_details['overview']).'</td>
+		<td style="vertical-align: top;" style="padding:10px;">'.preg_replace("/<img[^>]+\>/i", ' ', $script_details['overview']).'</td>
 	</tr>
 </table>
 </div>';
