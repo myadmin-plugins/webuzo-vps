@@ -18,7 +18,7 @@ function webuzo_list_backups($host, $user, $pass) {
 	if(!empty($response['backups'])) {
 		$table = '<table class="sai_divroundshad" cellpadding="12px;" border="0">
 					<tr>
-						<th align="left">Backup</th>
+						<th style="text-align: left;">Backup</th>
 						<th>File Name</th>
 						<th>Size</th>
 						<th>Version</th>

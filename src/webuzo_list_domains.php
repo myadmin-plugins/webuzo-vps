@@ -16,7 +16,7 @@ function webuzo_list_domains($host = NULL, $user = NULL, $pass = NULL) {
 	if(!empty($response['domains_list'])) {
 		$table = '<table class="sai_divroundshad" cellpadding="26px;" border="0">
 					<tr>
-						<th align="left">Domain</th>
+						<th style="text-align: left;">Domain</th>
 						<th>Path</th>
 						<th>Type</th>
 						<th>IP Address</th>

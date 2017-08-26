@@ -22,14 +22,14 @@ function webuzo_view_script($host, $user, $pass, $script_id) {
 
 	$table = '<table width="700px;" cellspacing="1" cellpadding="4" border="0">
 	<tbody><tr>
-		<td width="10%" align="center"><img src="https://images.softaculous.com/top15/48/'.$script_details['softname'].'.png"></td>
+		<td width="10%" style="text-align: center;"><img src="https://images.softaculous.com/top15/48/'.$script_details['softname'].'.png"></td>
 		<td width="90%" colspan="4" class="sai_process_heading">'.$script_details['name'].'</td>
 	</tr>
 	<tr>
-		<td width="20%" valign="top" align="left">
+		<td width="20%" valign="top" style="text-align: left;">
 			Version : <font size="2"><b>'.$script_details['ver'].'</b></font>
 		</td>
-		<td width="60%" align="left">
+		<td width="60%" style="text-align: left;">
 			Release Date : <font size="1"><b>'.$response['info']['release_date'].'</b></font>
 		</td>
 		<td width="10%">

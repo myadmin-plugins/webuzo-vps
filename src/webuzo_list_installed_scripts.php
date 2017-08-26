@@ -20,11 +20,11 @@ function webuzo_list_installed_scripts($host, $user, $pass) {
 		if(!empty($response['installations'])) {
 			$table = '<table class="sai_divroundshad" width="100%">
 						<tr>
-							<th style="padding-left: 10px; height: 50px;" align="left" width="40" align="left">Link</th>
-							<th align="left" width="10">Admin</th>
-							<th align="left" width="15">Installation Time</th>
-							<th align="left" width="10">Version</th>
-							<th align="left" width="25">Options</th>
+							<th style="padding-left: 10px; height: 50px;" style="text-align: left;" width="40" style="text-align: left;">Link</th>
+							<th style="text-align: left;" width="10">Admin</th>
+							<th style="text-align: left;" width="15">Installation Time</th>
+							<th style="text-align: left;" width="10">Version</th>
+							<th style="text-align: left;" width="25">Options</th>
 						</tr>';
 			foreach($installations as $soft_id => $installation) {
 				$softw = $softs[$soft_id];

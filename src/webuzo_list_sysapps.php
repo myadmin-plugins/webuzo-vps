@@ -56,7 +56,7 @@ function webuzo_list_sysapps($host=NULL, $user=NULL, $pass=NULL) {
 				foreach($softs as $sid => $softw) {
 					++$next;
 					if($next == 1) {add_output('<tr>');}
-					add_output('<td><a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_view_sysapps&script_id='.$sid.'&vps_id='.$vps_id.'" title="'.htmlentities($softw['desc'], ENT_QUOTES, 'UTF-8').'"><img alt="" style="width:100px;height:100px;" src="https://images.softaculous.com/webuzo/softimages/'.$sid.'__'.$softw['logo'].'"/><div align="left">'.$softw['name'].'</div></a></td>');
+					add_output('<td><a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_view_sysapps&script_id='.$sid.'&vps_id='.$vps_id.'" title="'.htmlentities($softw['desc'], ENT_QUOTES, 'UTF-8').'"><img alt="" style="width:100px;height:100px;" src="https://images.softaculous.com/webuzo/softimages/'.$sid.'__'.$softw['logo'].'"/><div style="text-align: left;">'.$softw['name'].'</div></a></td>');
 					if($next == 4) {
 						add_output('</tr>');
 						$next =0;

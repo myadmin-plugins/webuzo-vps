@@ -19,14 +19,14 @@ function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id =
 	$script_details = $response[$app_id];
 	$table = '<table width="700px;" cellspacing="1" cellpadding="4" border="0">
 	<tbody><tr>
-		<td width="10%" align="center"><img alt="" style="width:100px;height:100px;" src="https://images.softaculous.com/webuzo/softimages/'.$app_id.'__'.$script_details['logo'].'"/></td>
+		<td width="10%" style="text-align: center;"><img alt="" style="width:100px;height:100px;" src="https://images.softaculous.com/webuzo/softimages/'.$app_id.'__'.$script_details['logo'].'"/></td>
 		<td width="90%" colspan="4" class="sai_process_heading">'.$script_details['name'].'</td>
 	</tr>
 	<tr>
-		<td width="20%" valign="top" align="left">
+		<td width="20%" valign="top" style="text-align: left;">
 			Version : <font size="2"><b>'.$script_details['version'].'</b></font>
 		</td>
-		<td width="60%" align="left">
+		<td width="60%" style="text-align: left;">
 			Release Date : <font size="1"><b>'.$script_details['release_date'].'</b></font>
 		</td>
 		<td width="10%">
