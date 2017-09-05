@@ -60,9 +60,8 @@ function webuzo_view_script($host, $user, $pass, $script_id) {
 	$result = myadmin_unstringify($result);
 
 	$select_domain = '<select name="softdomain" style="width:250px;">';
-	foreach ($result['domains_list'] as $domain => $details) {
+	foreach ($result['domains_list'] as $domain => $details)
 		$select_domain .= '<option value="'.$domain.'">'.$domain.'</option>';
-	}
 	$select_domain .= '</select>';
 	$tableObj1->add_field($select_domain,'l');
 	$tableObj1->add_row();

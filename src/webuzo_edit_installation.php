@@ -28,9 +28,8 @@ function webuzo_edit_installation($host, $user, $pass, $installation_id) {
 		$db->query($query);
 		$user = 'admin';
 		$host = $service['vps_ip'];
-		while ($db->next_record(MYSQL_ASSOC)) {
+		while ($db->next_record(MYSQL_ASSOC))
 			if(isset($db->Record['history_new_value'])) $pass = $db->Record['history_new_value'];
-		}
 		$post = [
 			'editins'     => $GLOBALS['tf']->variables->request['editins'],
 			'edit_dir'    => $GLOBALS['tf']->variables->request['edit_dir'], // Must be the path to installation

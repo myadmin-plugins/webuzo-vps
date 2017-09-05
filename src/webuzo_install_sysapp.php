@@ -19,9 +19,8 @@ function webuzo_install_sysapp($host, $user, $pass, $app_id) {
 			$db->query($query);
 			$user = 'admin';
 			$host = $service['vps_ip'];
-			while ($db->next_record(MYSQL_ASSOC)) {
+			while ($db->next_record(MYSQL_ASSOC))
 				if(isset($db->Record['history_new_value'])) $pass = $db->Record['history_new_value'];
-			}
 		}
 		add_output('<h2>Application Details</h2>');
 		include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';

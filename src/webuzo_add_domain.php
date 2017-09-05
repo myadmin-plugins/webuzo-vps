@@ -20,9 +20,8 @@ function webuzo_add_domain($host=NULL, $user=NULL, $pass=NULL) {
 			$db->query($query);
 			$user = 'admin';
 			$host = $service['vps_ip'];
-			while ($db->next_record(MYSQL_ASSOC)) {
+			while ($db->next_record(MYSQL_ASSOC))
 				if(isset($db->Record['history_new_value'])) $pass = $db->Record['history_new_value'];
-			}
 			$domain = $GLOBALS['tf']->variables->request['domain'];
 			$domain_path = $GLOBALS['tf']->variables->request['domain_path'];
 			$new = new Webuzo_API($user, $pass, $host);

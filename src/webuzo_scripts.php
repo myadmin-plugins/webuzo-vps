@@ -14,9 +14,8 @@ function webuzo_scripts() {
 	$host = $service['vps_ip'];
 	$webuzo_password = '';
 
-	while ($db->next_record(MYSQL_ASSOC)) {
+	while ($db->next_record(MYSQL_ASSOC))
 		if(isset($db->Record['history_new_value'])) $webuzo_password = $db->Record['history_new_value'];
-	}
 	$new = new Webuzo_API($webuzo_user, $webuzo_password, $host);
 	$new->list_installed_scripts();
 	$softs = $new->iscripts;
