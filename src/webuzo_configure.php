@@ -49,6 +49,20 @@ function webuzo_configure($id) {
 		$res = $new->webuzo_configure($service['vps_ip'],  $user, $email, $pass, $service['vps_hostname'], $ns1, $ns2, $license_key);
 		myadmin_log('vps', 'info', "webuzo_configure({$service['vps_ip']},  $user, $email, $pass, {$service['vps_hostname']}, $ns1, $ns2, $license_key)",__LINE__,__FILE__);
 		$res = myadmin_unstringify($res);
+
+		// Installing Apache , Mysql, PHP
+		$install_lamp = array('125'=> 'Apache 2.4', '128' => 'Mysql 5.6', '124' => 'PHP 5.6');
+		foreach ($install_lamp as $app_id => $desc) {
+			try {
+				$res_install_app = $new->install_app($app_id);
+				myadmin_log('vps', 'info', "Webuzo - Installing $desc",__LINE__,__FILE__);
+				myadmin_log('vps', 'debug', "Response: ".myadmin_unstringify($res_install_app),__LINE__,__FILE__);
+			} 
+			catch(Exception $e) {
+				myadmin_log('vps', 'error', "Error ocurred Installing $desc. Error message: ".$e->getMessage(),__LINE__,__FILE__);
+			}
+		}
+		
 		if(isset($res['done'])) {
 			if($db->num_rows() == 0) {
 				$GLOBALS['tf']->history->add('vps', 'webuzo_pass', $pass,'Webuzo Details');
