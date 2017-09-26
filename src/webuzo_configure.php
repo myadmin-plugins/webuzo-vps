@@ -56,7 +56,7 @@ function webuzo_configure($id) {
 			try {
 				$res_install_app = $new->install_app($app_id);
 				myadmin_log('vps', 'info', "Webuzo - Installing $desc",__LINE__,__FILE__);
-				myadmin_log('vps', 'debug', "Response: ".myadmin_unstringify($res_install_app1),__LINE__,__FILE__);
+				myadmin_log('vps', 'debug', "Response: ".myadmin_unstringify($res_install_app),__LINE__,__FILE__);
 			} 
 			catch(Exception $e) {
 				myadmin_log('vps', 'error', "Error ocurred Installing $desc. Error message: ".$e->getMessage(),__LINE__,__FILE__);
