@@ -34,7 +34,7 @@ function webuzo_list_installed_scripts($host, $user, $pass) {
 					$time = date('d M Y, H:i:s',$details['itime']);
 					$table .= "<tr>
 							<td style='padding-left:10px;' width='40'><a href='{$details['softurl']}' target='_blank' title='".htmlentities($softw['desc'], ENT_QUOTES, 'UTF-8')."'>{$details['softurl']}</a></td>
-							<td width='10'><a href='$adminurl' target='_blank' title='Admin link'>Admin Link</a></td>
+							<td width='10'><a href='{$adminurl}' target='_blank' title='Admin link'>Admin Link</a></td>
 							<td width='15'>$time</td>
 							<td width='10'>{$details['ver']}</td>
 						";
