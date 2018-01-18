@@ -19,7 +19,7 @@ function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id =
 	$script_details = $response[$app_id];
 	$table = '<table width="700px;" cellspacing="1" cellpadding="4" border="0">
 	<tbody><tr>
-		<td width="10%" style="text-align: center;"><img alt="" style="width:100px;height:100px;" src="https://images.softaculous.com/webuzo/softimages/'.$app_id.'__'.$script_details['logo'].'"/></td>
+		<td width="10%" style="text-align: center;"><img style="width:100px;height:100px;" src="https://images.softaculous.com/webuzo/softimages/'.$app_id.'__'.$script_details['logo'].'"/></td>
 		<td width="90%" colspan="4" class="sai_process_heading">'.$script_details['name'].'</td>
 	</tr>
 	<tr>

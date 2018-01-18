@@ -103,7 +103,7 @@ $table .= '
 <div id="tabs-2">
 <table>
 	<tr>
-		<td><img width="500" alt="" src="https://images.softaculous.com/softimages/screenshots/'.$script_id.'_screenshot1.gif"></td>
+		<td><img width="500" src="https://images.softaculous.com/softimages/screenshots/'.$script_id.'_screenshot1.gif"></td>
 		<td style="vertical-align: top;" style="padding:10px;">'.preg_replace("/<img[^>]+\>/i", ' ', $response['info']['overview']).'</td>
 	</tr>
 </table>
