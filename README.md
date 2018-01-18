@@ -24,5 +24,5 @@ composer require detain/myadmin-webuzo-vps
 
 ## License
 
-The Webuzo handling plugin for MyAdmin class is licensed under the LGPL-v2 license.
+The Webuzo handling plugin for MyAdmin class is licensed under the LGPL-v2.1 license.
 
