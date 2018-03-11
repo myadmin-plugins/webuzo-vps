@@ -12,8 +12,8 @@ function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id =
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	add_output('<h2>Application Details</h2>');
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
-	$new = new Webuzo_API($user,$pass,$host);
-	$res= $new->list_apps();
+	$new = new Webuzo_API($user, $pass, $host);
+	$res = $new->list_apps();
 	$response = $new->apps;
 	$response_installed_app = $new->list_installed_apps();
 	$script_details = $response[$app_id];
@@ -52,7 +52,7 @@ function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id =
 	//$tableObj1->add_hidden('user', "$user");
 	//$tableObj1->add_hidden('pass', "$pass");
 	$tableObj1->set_colspan(2);
-	if(empty($response_installed_app[$app_id])){
+	if (empty($response_installed_app[$app_id])) {
 		$title_msg = 'Install Software';
 		$confirm_msg = 'Further no confirmation will be asked. Are you sure want to install ?';
 
@@ -61,12 +61,12 @@ function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id =
 		$confirm_msg = 'Further no confirmation will be asked. Are you sure want to remove ?';
 	}
 	$tableObj1->set_title($title_msg);
-	$tableObj1->add_field($confirm_msg,'l');
+	$tableObj1->add_field($confirm_msg, 'l');
 	$tableObj1->add_row();
 
 
 	$tableObj1->set_colspan(2);
-	if(empty($response_installed_app[$app_id]))
+	if (empty($response_installed_app[$app_id]))
 		$tableObj1->add_field($tableObj1->make_submit('Install'));
 	else
 		$tableObj1->add_field($tableObj1->make_submit('Remove'));

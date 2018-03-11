@@ -13,7 +13,7 @@ function webuzo_update_logo($host = NULL) {
 	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1000);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_TIMEOUT, 1000);
-	if(!empty($post)) {
+	if (!empty($post)) {
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
 	}

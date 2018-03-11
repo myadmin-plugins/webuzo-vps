@@ -9,7 +9,7 @@
 function webuzo_import_script($host, $user, $pass, $script_id) {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
-	if(isset($GLOBALS['tf']->variables->request['soft'])) {
+	if (isset($GLOBALS['tf']->variables->request['soft'])) {
 		$host = isset($GLOBALS['tf']->variables->request['host']) ? $GLOBALS['tf']->variables->request['host'] : '';
 		$user = isset($GLOBALS['tf']->variables->request['user']) ? $GLOBALS['tf']->variables->request['user'] : '';
 		$pass = isset($GLOBALS['tf']->variables->request['pass']) ? $GLOBALS['tf']->variables->request['pass'] : '';
@@ -24,12 +24,12 @@ function webuzo_import_script($host, $user, $pass, $script_id) {
 		function_requirements('webuzo_api_call');
 		$response = webuzo_api_call($host, $user, $pass, $act, $last_params, $post);
 		$response = (!empty($response)) ? myadmin_unstringify($response) : '';
-		if(!empty($response['done'])) {
+		if (!empty($response['done'])) {
 			add_output('Script imported successfully');
 		} else {
 			add_output('Error can\'t import script. <br />Error details:<br />');
 			$error_details = NULL;
-			foreach($response['error'] as $error_code => $details) {
+			foreach ($response['error'] as $error_code => $details) {
 				$error_details .= $details.'<br />';
 			}
 			add_output($error_details);

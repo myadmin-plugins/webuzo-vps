@@ -22,10 +22,10 @@ function webuzo_remove_script($host, $user, $pass, $script_id) {
 	$response = webuzo_api_call($host, $user, $pass, $act, $last_params, $post);
 	$response = myadmin_unstringify($response);
 	add_output('<h2>Remove Software</h2>');
-	if(!empty($response['done'])) {
+	if (!empty($response['done'])) {
 		add_output('Software removed successfully!');
 	} else {
-		foreach($response['error'] as $error_details) {
+		foreach ($response['error'] as $error_details) {
 				$final_error .= $error_details.'<br />';
 			}
 			add_output('Error occurred! Please try again later!<br />Error Details: '.$final_error);

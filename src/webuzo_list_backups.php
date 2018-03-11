@@ -15,7 +15,7 @@ function webuzo_list_backups($host, $user, $pass) {
 	$response = webuzo_api_call($host, $user, $pass, $act);
 	$response = myadmin_unstringify($response);
 	add_output('<h2>Backups</h2>');
-	if(!empty($response['backups'])) {
+	if (!empty($response['backups'])) {
 		$table = '<table class="sai_divroundshad" cellpadding="12px;" border="0">
 					<tr>
 						<th style="text-align: left;">Backup</th>
