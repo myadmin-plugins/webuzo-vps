@@ -74,7 +74,7 @@ function webuzo_configure($id) {
 				$GLOBALS['tf']->history->update($history_id, $data);
 				myadmin_log('vps', 'info', "Webuzo password updated to history_log id - $history_id successfully! for $email for vps id {$service['vps_ip']}",__LINE__,__FILE__);
 			}
-			$url = 'http://my.interserver.net/index.php?choice=none.view_vps3&id='.$id;
+			$url = 'http://my.interserver.net/index.php?choice=none.view_vps&id='.$id;
 			$body = 'Welcome! '.PHP_EOL;
 			$body .= 'Your VPS has been created successfully. Here are some details for you to get started.'.PHP_EOL;
 			$body .= 'You can manage your VPS through '.$url . PHP_EOL;
