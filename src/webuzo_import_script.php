@@ -6,7 +6,8 @@
  * @param $pass
  * @param $script_id
  */
-function webuzo_import_script($host, $user, $pass, $script_id) {
+function webuzo_import_script($host, $user, $pass, $script_id)
+{
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	if (isset($GLOBALS['tf']->variables->request['soft'])) {
@@ -28,13 +29,12 @@ function webuzo_import_script($host, $user, $pass, $script_id) {
 			add_output('Script imported successfully');
 		} else {
 			add_output('Error can\'t import script. <br />Error details:<br />');
-			$error_details = NULL;
+			$error_details = null;
 			foreach ($response['error'] as $error_code => $details) {
 				$error_details .= $details.'<br />';
 			}
 			add_output($error_details);
 		}
-
 	} else {
 		add_output('Oops! something went wrong!');
 	}

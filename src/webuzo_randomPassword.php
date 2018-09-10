@@ -4,7 +4,8 @@
  * @param int $length
  * @return string
  */
-function webuzo_randomPassword($length = 8) {
+function webuzo_randomPassword($length = 8)
+{
 	$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 	$pass = []; //remember to declare $pass as an array
 	$alphaLength = mb_strlen($alphabet) - 1; //put the length -1 in cache

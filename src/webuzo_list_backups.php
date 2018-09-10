@@ -5,7 +5,8 @@
  * @param $user
  * @param $pass
  */
-function webuzo_list_backups($host, $user, $pass) {
+function webuzo_list_backups($host, $user, $pass)
+{
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$act = 'backups';

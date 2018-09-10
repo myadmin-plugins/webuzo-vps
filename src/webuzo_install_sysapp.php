@@ -6,7 +6,8 @@
  * @param $pass
  * @param $app_id
  */
-function webuzo_install_sysapp($host, $user, $pass, $app_id) {
+function webuzo_install_sysapp($host, $user, $pass, $app_id)
+{
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	if (isset($GLOBALS['tf']->variables->request['submitbutton']) || $app_id) {
 		$vps_id = $GLOBALS['tf']->variables->request['vps_id'];
@@ -19,18 +20,24 @@ function webuzo_install_sysapp($host, $user, $pass, $app_id) {
 			$db->query($query);
 			$user = 'admin';
 			$host = $service['vps_ip'];
-			while ($db->next_record(MYSQL_ASSOC))
-				if (isset($db->Record['history_new_value'])) $pass = $db->Record['history_new_value'];
+			while ($db->next_record(MYSQL_ASSOC)) {
+				if (isset($db->Record['history_new_value'])) {
+					$pass = $db->Record['history_new_value'];
+				}
+			}
 		}
 		add_output('<h2>Application Details</h2>');
 		include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
-		if (isset($app_id)) $GLOBALS['tf']->variables->request['submitbutton'] = 'Remove';
+		if (isset($app_id)) {
+			$GLOBALS['tf']->variables->request['submitbutton'] = 'Remove';
+		}
 		$app_id = isset($app_id) ? $app_id : $GLOBALS['tf']->variables->request['soft'];
 		$new = new Webuzo_API($user, $pass, $host);
-		if ($GLOBALS['tf']->variables->request['submitbutton'] === 'Install')
+		if ($GLOBALS['tf']->variables->request['submitbutton'] === 'Install') {
 			$res = $new->install_app($app_id);
-		else
+		} else {
 			$res = $new->remove_app($app_id);
+		}
 		$result = myadmin_unstringify($res);
 		if (($GLOBALS['tf']->variables->request['submitbutton'] === 'Install' && $result['done']) || ($GLOBALS['tf']->variables->request['submitbutton'] === 'Remove' && !isset($result['error']))) {
 			$Outputstring = ($GLOBALS['tf']->variables->request['submitbutton'] === 'Install') ? 'Application is installed successfully!' : 'Application is removed successfully!';
@@ -42,4 +49,3 @@ function webuzo_install_sysapp($host, $user, $pass, $app_id) {
 		add_output('<br /><br /><a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_list_installed_sysapps&vps_id='.$vps_id.'" title="Back">Back</a>');
 	}
 }
-

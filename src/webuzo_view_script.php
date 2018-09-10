@@ -8,14 +8,21 @@
  * @throws \Exception
  * @throws \SmartyException
  */
-function webuzo_view_script($host, $user, $pass, $script_id) {
+function webuzo_view_script($host, $user, $pass, $script_id)
+{
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	function_requirements('webuzo_api_call');
 	function_requirements('webuzo_get_all_scripts');
-	$response1 = webuzo_get_all_scripts( $user, $pass, $host);
+	$response1 = webuzo_get_all_scripts($user, $pass, $host);
 	$script_details = $response1[$script_id];
-	if($script_details['type'] === 'js') $act = 'js'; elseif ($script_details['type'] === 'perl') $act = 'perl'; else $act = 'software';
+	if ($script_details['type'] === 'js') {
+		$act = 'js';
+	} elseif ($script_details['type'] === 'perl') {
+		$act = 'perl';
+	} else {
+		$act = 'software';
+	}
 	$act = "&act=$act&soft=$script_id";
 	$response = webuzo_api_call($host, $user, $pass, $act);
 	$response = myadmin_unstringify($response);
@@ -54,51 +61,52 @@ function webuzo_view_script($host, $user, $pass, $script_id) {
 	$tableObj1->set_choice('none.webuzo_scripts');
 	$tableObj1->add_hidden('vps_id', "$vps_id");
 	$tableObj1->add_hidden('soft', "$script_id");
-	$tableObj1->add_field('Choose Domain','l');
+	$tableObj1->add_field('Choose Domain', 'l');
 	$new = new Webuzo_API($user, $pass, $host);
 	$result = $new->list_domains();
 	$result = myadmin_unstringify($result);
 
 	$select_domain = '<select name="softdomain" style="width:250px;">';
-	foreach ($result['domains_list'] as $domain => $details)
+	foreach ($result['domains_list'] as $domain => $details) {
 		$select_domain .= '<option value="'.$domain.'">'.$domain.'</option>';
+	}
 	$select_domain .= '</select>';
-	$tableObj1->add_field($select_domain,'l');
+	$tableObj1->add_field($select_domain, 'l');
 	$tableObj1->add_row();
 
-	$tableObj1->add_field('In Directory','l');
-	$tableObj1->add_field($tableObj1->make_input('softdirectory', '', 25),'l');
+	$tableObj1->add_field('In Directory', 'l');
+	$tableObj1->add_field($tableObj1->make_input('softdirectory', '', 25), 'l');
 	$tableObj1->add_row();
 
 	$tableObj1->set_colspan(2);
-	$tableObj1->add_field('The directory is relative to your domain and <span style="font-weight:bold;">should not exist</span>. e.g. To install at http://mydomain/dir/ just type <span style="font-weight:bold;">dir</span>. To install only in http://mydomain/ leave this empty.','l');
+	$tableObj1->add_field('The directory is relative to your domain and <span style="font-weight:bold;">should not exist</span>. e.g. To install at http://mydomain/dir/ just type <span style="font-weight:bold;">dir</span>. To install only in http://mydomain/ leave this empty.', 'l');
 	$tableObj1->add_row();
 
-	$tableObj1->add_field('Site Name','l');
-	$tableObj1->add_field($tableObj1->make_input('site_name', '', 25),'l');
+	$tableObj1->add_field('Site Name', 'l');
+	$tableObj1->add_field($tableObj1->make_input('site_name', '', 25), 'l');
 	$tableObj1->add_row();
 
-	$tableObj1->add_field('Site Description','l');
-	$tableObj1->add_field($tableObj1->make_input('site_desc', '', 25),'l');
+	$tableObj1->add_field('Site Description', 'l');
+	$tableObj1->add_field($tableObj1->make_input('site_desc', '', 25), 'l');
 	$tableObj1->add_row();
 
-	$tableObj1->add_field('Admin Username','l');
-	$tableObj1->add_field($tableObj1->make_input('admin_username', '', 25),'l');
+	$tableObj1->add_field('Admin Username', 'l');
+	$tableObj1->add_field($tableObj1->make_input('admin_username', '', 25), 'l');
 	$tableObj1->add_row();
 
-	$tableObj1->add_field('Admin Password','l');
-	$tableObj1->add_field($tableObj1->make_input('admin_pass', '', 25),'l');
+	$tableObj1->add_field('Admin Password', 'l');
+	$tableObj1->add_field($tableObj1->make_input('admin_pass', '', 25), 'l');
 	$tableObj1->add_row();
 
-	$tableObj1->add_field('Admin Email','l');
-	$tableObj1->add_field($tableObj1->make_input('admin_email', '', 25),'l');
+	$tableObj1->add_field('Admin Email', 'l');
+	$tableObj1->add_field($tableObj1->make_input('admin_email', '', 25), 'l');
 	$tableObj1->add_row();
 
 	$tableObj1->set_colspan(2);
 	$tableObj1->add_field($tableObj1->make_submit('Install'));
 	$tableObj1->add_row();
 	$table .= $tableObj1->get_table();
-$table .= '
+	$table .= '
 </div>
 <div id="tabs-2">
 <table>
@@ -115,7 +123,7 @@ $table .= '
 
 </div>
 <div id="tabs-5">';
-$table .= '</div>
+	$table .= '</div>
 </div>
 <div id="tabid"></div>';
 

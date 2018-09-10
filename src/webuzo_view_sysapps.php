@@ -8,7 +8,8 @@
  * @throws \Exception
  * @throws \SmartyException
  */
-function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id = NULL) {
+function webuzo_view_sysapps($host = null, $user = null, $pass = null, $app_id = null)
+{
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	add_output('<h2>Application Details</h2>');
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
@@ -55,7 +56,6 @@ function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id =
 	if (empty($response_installed_app[$app_id])) {
 		$title_msg = 'Install Software';
 		$confirm_msg = 'Further no confirmation will be asked. Are you sure want to install ?';
-
 	} else {
 		$title_msg = 'Software Already Installed';
 		$confirm_msg = 'Further no confirmation will be asked. Are you sure want to remove ?';
@@ -66,14 +66,15 @@ function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id =
 
 
 	$tableObj1->set_colspan(2);
-	if (empty($response_installed_app[$app_id]))
+	if (empty($response_installed_app[$app_id])) {
 		$tableObj1->add_field($tableObj1->make_submit('Install'));
-	else
+	} else {
 		$tableObj1->add_field($tableObj1->make_submit('Remove'));
+	}
 
 	$tableObj1->add_row();
 	$table .= $tableObj1->get_table();
-$table .= '
+	$table .= '
 </div>
 <div id="tabs-2">
 <table>
@@ -83,7 +84,7 @@ $table .= '
 	</tr>
 </table>
 </div>';
-$table .= '</div>
+	$table .= '</div>
 <div id="tabid"></div>';
 
 	add_output($table);
@@ -100,6 +101,4 @@ $table .= '</div>
 	</script>
 	'
 	);
-
 }
-
