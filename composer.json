@@ -1,5 +1,5 @@
 {
-	"name": "detain/myadmin-webuzo-vps",
+	"name": "detain/webuzo-vps",
 	"type": "myadmin-plugin",
 	"description": "Webuzo handling plugin for MyAdmin",
 	"keywords": [
