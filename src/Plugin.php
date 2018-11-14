@@ -44,7 +44,7 @@ class Plugin
 		if ($GLOBALS['tf']->ima == 'admin') {
 			function_requirements('has_acl');
 			if (has_acl('client_billing')) {
-				$menu->add_link('admin', 'choice=none.abuse_admin', '/lib/webhostinghub-glyphs-icons/icons/development-16/Black/icon-spam.png', 'Webuzo');
+				$menu->add_link('admin', 'choice=none.abuse_admin', '/lib/webhostinghub-glyphs-icons/icons/development-16/Black/icon-spam.png', __('Webuzo'));
 			}
 		}
 	}
@@ -54,7 +54,10 @@ class Plugin
 	 */
 	public static function getRequirements(GenericEvent $event)
 	{
-		$loader = $event->getSubject();
+        /**
+         * @var \MyAdmin\Plugins\Loader $this->loader
+         */
+        $loader = $event->getSubject();
 		$loader->add_page_requirement('webuzo_configure', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_configure.php');
 		$loader->add_page_requirement('webuzo_scripts', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_scripts.php');
 		$loader->add_page_requirement('webuzo_edit_installation', '/../vendor/detain/myadmin-webuzo-vps/src/webuzo_edit_installation.php');
@@ -84,10 +87,13 @@ class Plugin
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getSettings(GenericEvent $event)
-	{
-		$settings = $event->getSubject();
-		$settings->add_text_setting('General', 'Webuzo', 'abuse_imap_user', 'Webuzo IMAP User:', 'Webuzo IMAP Username', ABUSE_IMAP_USER);
-		$settings->add_text_setting('General', 'Webuzo', 'abuse_imap_pass', 'Webuzo IMAP Pass:', 'Webuzo IMAP Password', ABUSE_IMAP_PASS);
+    public static function getSettings(GenericEvent $event)
+    {
+        /**
+         * @var \MyAdmin\Settings $settings
+         **/
+        $settings = $event->getSubject();
+		$settings->add_text_setting(__('General'), __('Webuzo'), 'abuse_imap_user', __('Webuzo IMAP User'), __('Webuzo IMAP Username'), ABUSE_IMAP_USER);
+		$settings->add_text_setting(__('General'), __('Webuzo'), 'abuse_imap_pass', __('Webuzo IMAP Pass'), __('Webuzo IMAP Password'), ABUSE_IMAP_PASS);
 	}
 }
