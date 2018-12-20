@@ -15,8 +15,6 @@ function webuzo_add_domain($host=null, $user=null, $pass=null)
 	if (isset($GLOBALS['tf']->variables->request['domain']) && verify_csrf_referrer(__LINE__, __FILE__)) {
 		$service = get_service($vps_id, 'vps');
 		$db = get_module_db('vps');
-		$GLOBALS['tf']->history->set_db_module('vps');
-		$GLOBALS['tf']->accounts->set_db_module('vps');
 		$query = "select * from history_log where history_owner = {$service['vps_custid']} and history_old_value = 'Webuzo Details'";
 		$db->query($query);
 		$user = 'admin';

@@ -39,8 +39,6 @@ function webuzo_configure($id)
 	}
 
 	$db = get_module_db('vps');
-	$GLOBALS['tf']->history->set_db_module('vps');
-	$GLOBALS['tf']->accounts->set_db_module('vps');
 	$db->query("select * from history_log where history_owner = {$service['vps_custid']} and history_old_value = 'Webuzo Details' limit 1");
 	$user = 'admin';
 	function_requirements('webuzo_randomPassword');
