@@ -88,7 +88,8 @@ function webuzo_view_sysapps($host = null, $user = null, $pass = null, $app_id =
 <div id="tabid"></div>';
 
 	add_output($table);
-	add_output('
+	add_output(
+		'
 	<script type="text/javascript">
 		$(function() {
 			$("#tabs").tabs({

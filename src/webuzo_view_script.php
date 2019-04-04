@@ -128,7 +128,8 @@ function webuzo_view_script($host, $user, $pass, $script_id)
 <div id="tabid"></div>';
 
 	add_output($table);
-	add_output('
+	add_output(
+		'
 		<style type="text/css">
 			span.stars, span.stars span {
 			display: block;
