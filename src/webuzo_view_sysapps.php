@@ -8,18 +8,19 @@
  * @throws \Exception
  * @throws \SmartyException
  */
-function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id = NULL) {
+function webuzo_view_sysapps($host = null, $user = null, $pass = null, $app_id = null)
+{
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	add_output('<h2>Application Details</h2>');
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
-	$new = new Webuzo_API($user,$pass,$host);
-	$res= $new->list_apps();
+	$new = new Webuzo_API($user, $pass, $host);
+	$res = $new->list_apps();
 	$response = $new->apps;
 	$response_installed_app = $new->list_installed_apps();
 	$script_details = $response[$app_id];
 	$table = '<table width="700px;" cellspacing="1" cellpadding="4" border="0">
 	<tbody><tr>
-		<td width="10%" style="text-align: center;"><img alt="" style="width:100px;height:100px;" src="https://images.softaculous.com/webuzo/softimages/'.$app_id.'__'.$script_details['logo'].'"/></td>
+		<td width="10%" style="text-align: center;"><img style="width:100px;height:100px;" src="https://images.softaculous.com/webuzo/softimages/'.$app_id.'__'.$script_details['logo'].'"/></td>
 		<td width="90%" colspan="4" class="sai_process_heading">'.$script_details['name'].'</td>
 	</tr>
 	<tr>
@@ -52,28 +53,28 @@ function webuzo_view_sysapps($host = NULL, $user = NULL, $pass = NULL, $app_id =
 	//$tableObj1->add_hidden('user', "$user");
 	//$tableObj1->add_hidden('pass', "$pass");
 	$tableObj1->set_colspan(2);
-	if(empty($response_installed_app[$app_id])){
+	if (empty($response_installed_app[$app_id])) {
 		$title_msg = 'Install Software';
 		$confirm_msg = 'Further no confirmation will be asked. Are you sure want to install ?';
-
 	} else {
 		$title_msg = 'Software Already Installed';
 		$confirm_msg = 'Further no confirmation will be asked. Are you sure want to remove ?';
 	}
 	$tableObj1->set_title($title_msg);
-	$tableObj1->add_field($confirm_msg,'l');
+	$tableObj1->add_field($confirm_msg, 'l');
 	$tableObj1->add_row();
 
 
 	$tableObj1->set_colspan(2);
-	if(empty($response_installed_app[$app_id]))
+	if (empty($response_installed_app[$app_id])) {
 		$tableObj1->add_field($tableObj1->make_submit('Install'));
-	else
+	} else {
 		$tableObj1->add_field($tableObj1->make_submit('Remove'));
+	}
 
 	$tableObj1->add_row();
 	$table .= $tableObj1->get_table();
-$table .= '
+	$table .= '
 </div>
 <div id="tabs-2">
 <table>
@@ -83,11 +84,12 @@ $table .= '
 	</tr>
 </table>
 </div>';
-$table .= '</div>
+	$table .= '</div>
 <div id="tabid"></div>';
 
 	add_output($table);
-	add_output('
+	add_output(
+		'
 	<script type="text/javascript">
 		$(function() {
 			$("#tabs").tabs({
@@ -100,6 +102,4 @@ $table .= '</div>
 	</script>
 	'
 	);
-
 }
-

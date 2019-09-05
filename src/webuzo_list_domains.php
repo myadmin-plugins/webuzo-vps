@@ -5,7 +5,8 @@
  * @param null $user
  * @param null $pass
  */
-function webuzo_list_domains($host = NULL, $user = NULL, $pass = NULL) {
+function webuzo_list_domains($host = null, $user = null, $pass = null)
+{
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$new = new Webuzo_API($user, $pass, $host);
@@ -13,7 +14,7 @@ function webuzo_list_domains($host = NULL, $user = NULL, $pass = NULL) {
 	$response = (!empty($result)) ? myadmin_unstringify($result) : '';
 	add_output('<h2 style="display:inline-block;width: 85%;">Domains</h2>
 		<a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_add_domain&vps_id='.$vps_id.'" style="display:inline-block;text-decoration: underline;">Add Domain</a>');
-	if(!empty($response['domains_list'])) {
+	if (!empty($response['domains_list'])) {
 		$table = '<table class="sai_divroundshad" cellpadding="26px;" border="0">
 					<tr>
 						<th style="text-align: left;">Domain</th>
@@ -25,11 +26,11 @@ function webuzo_list_domains($host = NULL, $user = NULL, $pass = NULL) {
 		foreach ($response['domains_list'] as $domain => $details) {
 			$table .= '<tr><td><a target="__blank" href="http://'.$domain.'">'.$domain.'</a></td>';
 			$table .= '<td>'.$details['path'].'</td>';
-			if(isset($details['addon']) && $details['addon'] == 1) {
+			if (isset($details['addon']) && $details['addon'] == 1) {
 				$type_string = 'Addon';
-			} elseif(isset($details['addon']) && $details['addon'] == 0) {
+			} elseif (isset($details['addon']) && $details['addon'] == 0) {
 				$type_string = 'Parked';
-			} elseif($response['primary_domain'] == $domain) {
+			} elseif ($response['primary_domain'] == $domain) {
 				$type_string = 'Primary';
 			}
 			$table .= '<td>'.$type_string.'</td>';

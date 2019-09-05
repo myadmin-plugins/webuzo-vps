@@ -5,7 +5,8 @@
  * @param null $user
  * @param null $pass
  */
-function webuzo_list_installed_sysapps($host = NULL, $user = NULL, $pass = NULL) {
+function webuzo_list_installed_sysapps($host = null, $user = null, $pass = null)
+{
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	add_output('<h2>System Applications</h2>');
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
@@ -13,7 +14,7 @@ function webuzo_list_installed_sysapps($host = NULL, $user = NULL, $pass = NULL)
 	$response_installed_app = $new->list_installed_apps();
 	$res = $new->list_apps();
 	$script_list = $new->apps;
-	if(!empty($response_installed_app)) {
+	if (!empty($response_installed_app)) {
 		$table = '';
 		$table .= '<table cellpadding = "10" width="100%" class="table table-hover">';
 		$table .= '<thead style="background-color: #333333; color: #fff;"><tr>
@@ -30,7 +31,7 @@ function webuzo_list_installed_sysapps($host = NULL, $user = NULL, $pass = NULL)
 				$base_path = isset($value['path']['base']) ? $value['path']['base'] : '';
 				$table .= '<tr>';
 				$table .= "<td height='40'>".$base_path.'</td>';
-				$table .= "<td height='40'>".date('F d, Y H:i',$value['itime']).'</td>';
+				$table .= "<td height='40'>".date('F d, Y H:i', $value['itime']).'</td>';
 				$table .= "<td height='40'>".$value['version'].'</td>';
 				$table .= '<td height="40" width=20><a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_install_sysapp&script_id='.$app_id.'&vps_id='.$vps_id.'" title="Remove" onclick="return confirm(\'Are you sure want to remove '.$script_list[$app_id]['fullname'].' ?\');">Remove</a></td>';
 				$table .= '</tr>';

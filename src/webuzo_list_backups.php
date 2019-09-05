@@ -5,7 +5,8 @@
  * @param $user
  * @param $pass
  */
-function webuzo_list_backups($host, $user, $pass) {
+function webuzo_list_backups($host, $user, $pass)
+{
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$act = 'backups';
@@ -15,7 +16,7 @@ function webuzo_list_backups($host, $user, $pass) {
 	$response = webuzo_api_call($host, $user, $pass, $act);
 	$response = myadmin_unstringify($response);
 	add_output('<h2>Backups</h2>');
-	if(!empty($response['backups'])) {
+	if (!empty($response['backups'])) {
 		$table = '<table class="sai_divroundshad" cellpadding="12px;" border="0">
 					<tr>
 						<th style="text-align: left;">Backup</th>
