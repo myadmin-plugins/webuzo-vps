@@ -73,24 +73,18 @@ function webuzo_configure($id)
 			myadmin_log('vps', 'info', "Webuzo password updated to history_log id - $history_id successfully! for $email for vps id {$service['vps_ip']}", __LINE__, __FILE__);
 		}
 		$url = 'http://my.interserver.net/index.php?choice=none.view_vps&id='.$id;
-		$body = 'Welcome! '.PHP_EOL;
-		$body .= 'Your VPS has been created successfully. Here are some details for you to get started.'.PHP_EOL;
-		$body .= 'You can manage your VPS through '.$url . PHP_EOL;
-		$body .= 'Bread Basket Control Panel '.PHP_EOL;
-		$body .= 'Url: http://'.$service['vps_ip'].':2002/'.PHP_EOL;
-		$body .= 'Username: admin'.PHP_EOL;
-		$body .= 'Password: '.$pass . PHP_EOL;
-		$body .= 'Documentation: https://www.interserver.net/tips/knb-category/breadbasket/'.PHP_EOL;
-		$body .= 'Thank You, '.PHP_EOL;
-		$body .= 'Regards, '.PHP_EOL;
-		$body .= 'Interserver Team';
-		$subject = 'InterServer Bread Basket Details';
+		$data = $GLOBALS['tf']->accounts->read($service['vps_custid']);
+		$smartyE = new TFSmarty;
+		$smartyE->assign('name', $data['name']);
+		$smartyE->assign('webuzo_url', 'http://'.$service['vps_ip'].':2002/');
+		$smartyE->assign('password_reset_link', $url.'&link=update_webuzo_pass');
+		$msg = $smartyE->fetch('email/client/vps_webuzo_new_acc.tpl');
 		$headers = '';
 		$headers .= 'MIME-Version: 1.0'.PHP_EOL;
-		$headers .= 'Content-Type: text/plain; charset=UTF-8'.PHP_EOL;
-		$headers .= 'From: admin@interserver.net'.PHP_EOL;
-		$headers .= 'To: '.$email . PHP_EOL;
-		mail($email, $subject, $body, $headers);
+		$headers .= 'Content-Type: text/html; charset=UTF-8'.PHP_EOL;
+		$headers .= 'From: InterServer <support@interserver.net>' . PHP_EOL;
+		$subject = 'InterServer Webuzo Details';
+		multi_mail((isset($data['email']) && $data['email'] != '' ? $data['email'] : $data['account_lid']), $subject, $msg, $headers, 'email/client/vps_webuzo_new_acc.tpl');
 		myadmin_log('vps', 'info', "Webuzo configuration email has been sent to $email", __LINE__, __FILE__);
 		myadmin_log('vps', 'info', "Webuzo configured successfully! for $email for vps id {$service['vps_ip']}", __LINE__, __FILE__);
 	} else {

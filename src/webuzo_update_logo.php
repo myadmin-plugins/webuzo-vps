@@ -7,7 +7,7 @@
 function webuzo_update_logo($host = null)
 {
 	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
-	$url = "http://$host:2004/install.php?preparelogo=https://my.interserver.net/templates/my/logo.png&sitename=Bread Basket";
+	$url = "http://$host:2004/install.php?sitename=InterServer Webuzo";
 	// Set the curl parameters.
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
