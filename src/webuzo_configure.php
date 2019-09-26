@@ -17,7 +17,7 @@ function webuzo_configure($id)
 	}
 	function_requirements('webuzo_update_logo');
 	$logo_update_resp = webuzo_update_logo($service['vps_ip']);
-	$msg = (!empty($logo_update_resp)) ? 'Logo and text change is completed successfully!' : 'Logo and text change is not completed failed!';
+	$msg = (!empty($logo_update_resp)) ? 'Title change is completed successfully!' : 'Failed! Title change is not completed failed';
 	myadmin_log('vps', 'info', $msg, __LINE__, __FILE__);
 	$email = $GLOBALS['tf']->accounts->cross_reference($service['vps_custid']);
 	$ns1 = 'cdns1.interserver.net';
@@ -72,10 +72,11 @@ function webuzo_configure($id)
 			$GLOBALS['tf']->history->update($history_id, $data);
 			myadmin_log('vps', 'info', "Webuzo password updated to history_log id - $history_id successfully! for $email for vps id {$service['vps_ip']}", __LINE__, __FILE__);
 		}
-		$url = 'http://my.interserver.net/index.php?choice=none.view_vps&id='.$id;
+		$url = 'https://my.interserver.net/index.php?choice=none.view_vps&id='.$id;
 		$data = $GLOBALS['tf']->accounts->read($service['vps_custid']);
 		$smartyE = new TFSmarty;
 		$smartyE->assign('name', $data['name']);
+		$smartyE->assign('vps_url', $url);
 		$smartyE->assign('webuzo_url', 'http://'.$service['vps_ip'].':2002/');
 		$smartyE->assign('password_reset_link', $url.'&link=update_webuzo_pass');
 		$msg = $smartyE->fetch('email/client/vps_webuzo_new_acc.tpl');
