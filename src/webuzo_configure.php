@@ -35,7 +35,7 @@ function webuzo_configure($id)
 			}
 		}
 	} else {
-		myadmin_log('vps', 'info', "Webuzo License not found for $email for {$service['vps_ip']}", __LINE__, __FILE__);
+		myadmin_log('vps', 'info', "Webuzo License not found for {$email} for {$service['vps_ip']}", __LINE__, __FILE__);
 	}
 
 	$db = get_module_db('vps');
@@ -46,9 +46,8 @@ function webuzo_configure($id)
 
 	$new = new Webuzo_API($user, $pass, $service['vps_ip']);
 	$res = $new->webuzo_configure($service['vps_ip'], $user, $email, $pass, $service['vps_hostname'], $ns1, $ns2, $license_key);
-	myadmin_log('vps', 'info', "webuzo_configure({$service['vps_ip']},  $user, $email, $pass, {$service['vps_hostname']}, $ns1, $ns2, $license_key)", __LINE__, __FILE__);
+	myadmin_log('vps', 'info', "webuzo_configure({$service['vps_ip']}, {$user}, {$email}, {$pass}, {$service['vps_hostname']}, {$ns1}, {$ns2}, {$license_key})", __LINE__, __FILE__);
 	$res = myadmin_unstringify($res);
-
 	// Installing Apache , Mysql, PHP
 	$install_lamp = array('125'=> 'Apache 2.4', '128' => 'Mysql 5.6', '124' => 'PHP 5.6');
 	foreach ($install_lamp as $app_id => $desc) {
@@ -64,13 +63,13 @@ function webuzo_configure($id)
 	if (isset($res['done'])) {
 		if ($db->num_rows() == 0) {
 			$GLOBALS['tf']->history->add('vps', 'webuzo_pass', $pass, 'Webuzo Details');
-			myadmin_log('vps', 'info', "Webuzo password added to history_log successfully! for $email for vps id {$service['vps_ip']}", __LINE__, __FILE__);
+			myadmin_log('vps', 'info', "Webuzo password added to history_log successfully! for {$email} for vps id {$service['vps_ip']}", __LINE__, __FILE__);
 		} else {
 			$data['history_new_value'] = $pass;
 			$db->next_record(MYSQL_ASSOC);
 			$history_id = $db->Record['history_id'];
 			$GLOBALS['tf']->history->update($history_id, $data);
-			myadmin_log('vps', 'info', "Webuzo password updated to history_log id - $history_id successfully! for $email for vps id {$service['vps_ip']}", __LINE__, __FILE__);
+			myadmin_log('vps', 'info', "Webuzo password updated to history_log id - {$history_id} successfully! for {$email} for vps id {$service['vps_ip']}", __LINE__, __FILE__);
 		}
 		$url = 'https://my.interserver.net/index.php?choice=none.view_vps&id='.$id;
 		$data = $GLOBALS['tf']->accounts->read($service['vps_custid']);
@@ -86,10 +85,10 @@ function webuzo_configure($id)
 		$headers .= 'From: InterServer <support@interserver.net>' . PHP_EOL;
 		$subject = 'InterServer Webuzo Details';
 		multi_mail((isset($data['email']) && $data['email'] != '' ? $data['email'] : $data['account_lid']), $subject, $msg, $headers, 'email/client/vps_webuzo_new_acc.tpl');
-		myadmin_log('vps', 'info', "Webuzo configuration email has been sent to $email", __LINE__, __FILE__);
-		myadmin_log('vps', 'info', "Webuzo configured successfully! for $email for vps id {$service['vps_ip']}", __LINE__, __FILE__);
+		myadmin_log('vps', 'info', "Webuzo configuration email has been sent to {$email}", __LINE__, __FILE__);
+		myadmin_log('vps', 'info', "Webuzo configured successfully! for {$email} for vps id {$service['vps_ip']}", __LINE__, __FILE__);
 	} else {
-		myadmin_log('vps', 'info', "Error while configuring webuzo! for $email for vps id {$service['vps_ip']}", __LINE__, __FILE__);
+		myadmin_log('vps', 'info', "Error while configuring webuzo! for {$email} for vps id {$service['vps_ip']}", __LINE__, __FILE__);
 		myadmin_log('vps', 'info', 'Error details : '.json_encode($res), __LINE__, __FILE__);
 	}
 }
