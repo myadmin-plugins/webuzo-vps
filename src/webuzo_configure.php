@@ -79,12 +79,8 @@ function webuzo_configure($id)
 		$smartyE->assign('webuzo_url', 'http://'.$service['vps_ip'].':2002/');
 		$smartyE->assign('password_reset_link', $url.'&link=update_webuzo_pass');
 		$msg = $smartyE->fetch('email/client/vps_webuzo_new_acc.tpl');
-		$headers = '';
-		$headers .= 'MIME-Version: 1.0'.PHP_EOL;
-		$headers .= 'Content-Type: text/html; charset=UTF-8'.PHP_EOL;
-		$headers .= 'From: InterServer <support@interserver.net>' . PHP_EOL;
 		$subject = 'InterServer Webuzo Details';
-		multi_mail((isset($data['email']) && $data['email'] != '' ? $data['email'] : $data['account_lid']), $subject, $msg, $headers, 'email/client/vps_webuzo_new_acc.tpl');
+		multi_mail((isset($data['email']) && $data['email'] != '' ? $data['email'] : $data['account_lid']), $subject, $msg, false, 'email/client/vps_webuzo_new_acc.tpl');
 		myadmin_log('vps', 'info', "Webuzo configuration email has been sent to {$email}", __LINE__, __FILE__);
 		myadmin_log('vps', 'info', "Webuzo configured successfully! for {$email} for vps id {$service['vps_ip']}", __LINE__, __FILE__);
 	} else {
