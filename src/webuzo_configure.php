@@ -80,7 +80,7 @@ function webuzo_configure($id)
 		$smartyE->assign('password_reset_link', $url.'&link=update_webuzo_pass');
 		$msg = $smartyE->fetch('email/client/vps_webuzo_new_acc.tpl');
 		$subject = 'InterServer Webuzo Details';
-		multi_mail((isset($data['email']) && $data['email'] != '' ? $data['email'] : $data['account_lid']), $subject, $msg, false, 'email/client/vps_webuzo_new_acc.tpl');
+		(new \MyAdmin\Mail())->multiMail($subject, $msg, (isset($data['email']) && $data['email'] != '' ? $data['email'] : $data['account_lid']), 'email/client/vps_webuzo_new_acc.tpl');
 		myadmin_log('vps', 'info', "Webuzo configuration email has been sent to {$email}", __LINE__, __FILE__);
 		myadmin_log('vps', 'info', "Webuzo configured successfully! for {$email} for vps id {$service['vps_ip']}", __LINE__, __FILE__);
 	} else {
