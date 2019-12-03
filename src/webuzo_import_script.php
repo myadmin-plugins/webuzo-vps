@@ -8,7 +8,7 @@
  */
 function webuzo_import_script($host, $user, $pass, $script_id)
 {
-	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	if (isset($GLOBALS['tf']->variables->request['soft'])) {
 		$host = isset($GLOBALS['tf']->variables->request['host']) ? $GLOBALS['tf']->variables->request['host'] : '';

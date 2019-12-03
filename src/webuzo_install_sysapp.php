@@ -8,7 +8,7 @@
  */
 function webuzo_install_sysapp($host, $user, $pass, $app_id)
 {
-	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
 	if (isset($GLOBALS['tf']->variables->request['submitbutton']) || $app_id) {
 		$vps_id = $GLOBALS['tf']->variables->request['vps_id'];
 		if (!$app_id) {
@@ -25,7 +25,7 @@ function webuzo_install_sysapp($host, $user, $pass, $app_id)
 			}
 		}
 		add_output('<h2>Application Details</h2>');
-		include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
+		include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
 		if (isset($app_id)) {
 			$GLOBALS['tf']->variables->request['submitbutton'] = 'Remove';
 		}

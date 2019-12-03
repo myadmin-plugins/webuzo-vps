@@ -10,7 +10,7 @@
  */
 function webuzo_view_sysapps($host = null, $user = null, $pass = null, $app_id = null)
 {
-	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
 	add_output('<h2>Application Details</h2>');
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$new = new Webuzo_API($user, $pass, $host);

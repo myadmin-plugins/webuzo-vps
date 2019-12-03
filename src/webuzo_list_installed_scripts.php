@@ -7,7 +7,7 @@
  */
 function webuzo_list_installed_scripts($host, $user, $pass)
 {
-	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$act = 'installations';
 	function_requirements('webuzo_api_call');

@@ -8,7 +8,7 @@
  */
 function webuzo_remove_script($host, $user, $pass, $script_id)
 {
-	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$act = 'remove';
 	$last_params = "&insid=$script_id";

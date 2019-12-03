@@ -7,7 +7,7 @@
  */
 function webuzo_list_domains($host = null, $user = null, $pass = null)
 {
-	include_once INCLUDE_ROOT.'/../vendor/softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$new = new Webuzo_API($user, $pass, $host);
 	$result = $new->list_domains();
