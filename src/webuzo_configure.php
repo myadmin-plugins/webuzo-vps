@@ -26,7 +26,7 @@ function webuzo_configure($id)
 	//Webuzo license
 	$license_key = null;
 	$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(WEBUZO_USERNAME, WEBUZO_PASSWORD);
-	$license_details = $noc->webuzoLicenses('', $service['vps_ip']);
+	$license_details = $noc->webuzo_licenses('', $service['vps_ip']);
 	if ($license_details['num_results'] > 0) {
 		foreach ($license_details['licenses'] as $license_detail) {
 			if ($service['vps_ip'] == $license_detail['ip']) {
