@@ -7,7 +7,7 @@
  */
 function webuzo_list_installed_sysapps($host = null, $user = null, $pass = null)
 {
-	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/webuzo_sdk.php';
 	add_output('<h2>System Applications</h2>');
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$new = new Webuzo_API($user, $pass, $host);

@@ -10,7 +10,7 @@
  */
 function webuzo_view_script($host, $user, $pass, $script_id)
 {
-	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	function_requirements('webuzo_api_call');
 	function_requirements('webuzo_get_all_scripts');

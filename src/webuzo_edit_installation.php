@@ -10,7 +10,7 @@
  */
 function webuzo_edit_installation($host, $user, $pass, $installation_id)
 {
-	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/webuzo_sdk.php';
 	$vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] :'';
 	if (isset($GLOBALS['tf']->variables->request['installation_id'])) {
 		$installation_id = $GLOBALS['tf']->variables->request['installation_id'];

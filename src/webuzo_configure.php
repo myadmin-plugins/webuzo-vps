@@ -6,7 +6,7 @@
  */
 function webuzo_configure($id)
 {
-	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/webuzo_sdk.php';
 	if (isset($GLOBALS['tf']->variables->request['vps_id'])) {
 		$id = $GLOBALS['tf']->variables->request['vps_id'];
 	}

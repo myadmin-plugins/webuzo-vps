@@ -6,7 +6,7 @@
  */
 function webuzo_update_logo($host = null)
 {
-	include_once __DIR__.'/../../../softaculous/webuzo_sdk/webuzo_sdk.php';
+	include_once __DIR__.'/webuzo_sdk.php';
 	$url = "http://$host:2004/install.php?sitename=InterServer Webuzo";
 	// Set the curl parameters.
 	$ch = curl_init();
