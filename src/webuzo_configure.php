@@ -39,7 +39,7 @@ function webuzo_configure($id)
 	}
 
 	$db = get_module_db('vps');
-	$db->query("select * from history_log where history_owner = {$service['vps_custid']} and history_old_value = 'Webuzo Details' limit 1");
+	$db->query("select * from history_log where history_owner = '{$service['vps_custid']}' and history_old_value = 'Webuzo Details' limit 1");
 	$user = 'admin';
 	function_requirements('webuzo_randomPassword');
 	$pass = webuzo_randomPassword();

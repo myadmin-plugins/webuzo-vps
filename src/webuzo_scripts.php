@@ -7,7 +7,7 @@ function webuzo_scripts()
 	$id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
 	$service = get_service($id, 'vps');
 	$db = get_module_db('vps');
-	$query = "select * from history_log where history_owner = {$service['vps_custid']} and history_old_value = 'Webuzo Details'";
+	$query = "select * from history_log where history_owner = '{$service['vps_custid']}' and history_old_value = 'Webuzo Details'";
 	$db->query($query);
 	$webuzo_user = 'admin';
 	$host = $service['vps_ip'];

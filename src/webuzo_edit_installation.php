@@ -24,7 +24,7 @@ function webuzo_edit_installation($host, $user, $pass, $installation_id)
 	if (isset($GLOBALS['tf']->variables->request['editins']) && verify_csrf_referrer(__LINE__, __FILE__)) {
 		$service = get_service($vps_id, 'vps');
 		$db = get_module_db('vps');
-		$query = "select * from history_log where history_owner = {$service['vps_custid']} and history_old_value = 'Webuzo Details'";
+		$query = "select * from history_log where history_owner = '{$service['vps_custid']}' and history_old_value = 'Webuzo Details'";
 		$db->query($query);
 		$user = 'admin';
 		$host = $service['vps_ip'];
