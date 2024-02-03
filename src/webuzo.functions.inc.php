@@ -25,7 +25,7 @@ function webuzo_add_backup($host, $user, $pass, $install_id)
 {
     include_once __DIR__.'/webuzo_sdk.php';
     add_output('<h2>Create Backup</h2>');
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $act = 'backup';
     $last_params = "&insid=$install_id";
     $post = [
@@ -54,7 +54,7 @@ function webuzo_add_backup($host, $user, $pass, $install_id)
 function webuzo_download_backup($host, $user, $pass, $back_up_name)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $new = new Webuzo_API($user, $pass, $host);
     $new->download_backup($back_up_name, '/home/my/public_html/webuzo_file_downloads/');
     $file = "/home/my/public_html/webuzo_file_downloads/$back_up_name";
@@ -80,7 +80,7 @@ function webuzo_download_backup($host, $user, $pass, $back_up_name)
 function webuzo_remove_backup($host, $user, $pass, $back_up_name)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $act = 'backups';
     $last_params = "&remove=$back_up_name";
     $post = [
@@ -109,7 +109,7 @@ function webuzo_remove_backup($host, $user, $pass, $back_up_name)
 function webuzo_restore_backup($host, $user, $pass, $back_up_name)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $act = 'restore';
     $last_params = "&restore=$back_up_name";
     $post = [

@@ -30,13 +30,13 @@ class Softaculous_SDK
 
     public $debug = 0;
 
-    public $error = array();
+    public $error = [];
 
     // THE POST DATA
-    public $data = array();
+    public $data = [];
 
-    public $scripts = array();
-    public $iscripts = array();
+    public $scripts = [];
+    public $iscripts = [];
 
     // If some cookies need to be set for this
     public $cookie;
@@ -54,7 +54,7 @@ class Softaculous_SDK
      * @return       string $resp Response of URL
      * @since     	 4.1.3
      */
-    public function curl($url, $post = array(), $cookies = array(), $header = 0)
+    public function curl($url, $post = [], $cookies = [], $header = 0)
     {
 
         // Set the curl parameters.
@@ -110,7 +110,7 @@ class Softaculous_SDK
      * @return       string $resp Response of Actions
      * @since     	 4.1.3
      */
-    public function curl_call($act, $post = array())
+    public function curl_call($act, $post = [])
     {
         $url = $this->login;
 
@@ -119,11 +119,11 @@ class Softaculous_SDK
         if ($tmp_url['port'] == '2222' && empty($this->cookie)) {
             $cmd_login = $tmp_url['scheme'].'://'.$tmp_url['host'].':'.$tmp_url['port'].'/CMD_LOGIN';
 
-            $cmd_post = array('username' => $tmp_url['user'],
+            $cmd_post = ['username' => $tmp_url['user'],
                     'password' => $tmp_url['pass'],
-                    'referer' => '/');
+                    'referer' => '/'];
 
-            $res = $this->curl($cmd_login, $cmd_post, array(), 1);
+            $res = $this->curl($cmd_login, $cmd_post, [], 1);
 
             $res = explode("\n", $res);
 
@@ -161,7 +161,7 @@ class Softaculous_SDK
      * @return       string $resp Response of Actions
      * @since     	 4.1.3
      */
-    public function curl_unserialize($act, $post = array())
+    public function curl_unserialize($act, $post = [])
     {
         $resp = $this->curl_call($act, $post);
 
@@ -178,7 +178,7 @@ class Softaculous_SDK
      * @return		string $resp Response of Action. Default: Serialize
      * @since		4.1.3
      */
-    public function install($sid, $data = array(), $autoinstall = array())
+    public function install($sid, $data = [], $autoinstall = [])
     {
 
         // Get the Scripts List
@@ -223,7 +223,7 @@ class Softaculous_SDK
      * @return		string $resp Response of Actions. Default: Serialize
      * @since		4.1.3
      */
-    public function import($sid, $data = array())
+    public function import($sid, $data = [])
     {
 
         // Get the Scripts List
@@ -255,7 +255,7 @@ class Softaculous_SDK
      * @return		string $resp Response of Actions. Default: Serialize
      * @since		4.1.3
      */
-    public function upgrade($insid, $data = array())
+    public function upgrade($insid, $data = [])
     {
         // Action for Upgrade
         $act = '&act=upgrade&insid='.$insid;
@@ -279,7 +279,7 @@ class Softaculous_SDK
      * @return		string $resp Response of Actions. Default: Serialize
      * @since		4.1.3
      */
-    public function restore($name, $data = array())
+    public function restore($name, $data = [])
     {
 
         // Action for restore
@@ -302,7 +302,7 @@ class Softaculous_SDK
      * @return		string $resp Response of Actions. Default: Serialize
      * @since		4.1.3
      */
-    public function remove($insid, $data = array())
+    public function remove($insid, $data = [])
     {
 
         // Action for Remove
@@ -326,7 +326,7 @@ class Softaculous_SDK
      * @return		string $resp Response of Actions. Default: Serialize
      * @since		4.1.3
      */
-    public function backup($insid, $data = array())
+    public function backup($insid, $data = [])
     {
 
         // Action for Backup

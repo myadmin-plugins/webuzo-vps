@@ -8,7 +8,7 @@
 function webuzo_list_backups($host, $user, $pass)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $act = 'backups';
     function_requirements('webuzo_api_call');
     function_requirements('webuzo_format_units_size');

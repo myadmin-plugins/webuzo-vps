@@ -9,7 +9,7 @@
 function webuzo_remove_script($host, $user, $pass, $script_id)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $act = 'remove';
     $last_params = "&insid=$script_id";
     $post = [

@@ -37,14 +37,14 @@ class Webuzo_API extends Softaculous_API
 
     public $debug = 0;
 
-    public $error = array();
+    public $error = [];
 
     // THE POST DATA
-    public $data = array();
+    public $data = [];
 
-    public $apps = array(); // List of Apps
+    public $apps = []; // List of Apps
 
-    public $installed_apps = array(); // List of Installed Apps
+    public $installed_apps = []; // List of Installed Apps
 
     /**
      * Initalize API login
@@ -75,7 +75,7 @@ class Webuzo_API extends Softaculous_API
      * @param        string $license The License Key
      * @return       void
      */
-    public function webuzo_configure($ip, $user, $email, $pass, $host, $ns1 = '', $ns2 ='', $license = '', $data = array())
+    public function webuzo_configure($ip, $user, $email, $pass, $host, $ns1 = '', $ns2 ='', $license = '', $data = [])
     {
         $data['uname'] = $user;
         $data['email'] = $email;
@@ -1550,8 +1550,8 @@ class Webuzo_API extends Softaculous_API
     {
         $act = 'act=service_manager';
 
-        $php = array('php53', 'php54', 'php55');
-        $server = array('httpd', 'nginx', 'lighttpd');
+        $php = ['php53', 'php54', 'php55'];
+        $server = ['httpd', 'nginx', 'lighttpd'];
 
         if (in_array($service, $php)) {
             $data['default_php'] = $service;

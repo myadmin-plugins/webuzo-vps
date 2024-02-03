@@ -9,11 +9,11 @@
 function webuzo_import_script($host, $user, $pass, $script_id)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     if (isset($GLOBALS['tf']->variables->request['soft'])) {
-        $host = isset($GLOBALS['tf']->variables->request['host']) ? $GLOBALS['tf']->variables->request['host'] : '';
-        $user = isset($GLOBALS['tf']->variables->request['user']) ? $GLOBALS['tf']->variables->request['user'] : '';
-        $pass = isset($GLOBALS['tf']->variables->request['pass']) ? $GLOBALS['tf']->variables->request['pass'] : '';
+        $host = $GLOBALS['tf']->variables->request['host'] ?? '';
+        $user = $GLOBALS['tf']->variables->request['user'] ?? '';
+        $pass = $GLOBALS['tf']->variables->request['pass'] ?? '';
         $script_id = $GLOBALS['tf']->variables->request['soft'];
         $act = 'import';
         $last_params = "&soft=$script_id";

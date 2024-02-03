@@ -8,7 +8,7 @@
 function webuzo_list_installed_scripts($host, $user, $pass)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $act = 'installations';
     function_requirements('webuzo_api_call');
     function_requirements('webuzo_get_all_scripts');

@@ -9,7 +9,7 @@ function webuzo_list_installed_sysapps($host = null, $user = null, $pass = null)
 {
     include_once __DIR__.'/webuzo_sdk.php';
     add_output('<h2>System Applications</h2>');
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $new = new Webuzo_API($user, $pass, $host);
     $response_installed_app = $new->list_installed_apps();
     $res = $new->list_apps();
@@ -28,7 +28,7 @@ function webuzo_list_installed_sysapps($host = null, $user = null, $pass = null)
             $table .= "<th style='background-color: #EFEFEF;text-align: left;' colspan='5'>".$script_list[$app_id]['fullname'].'</th>';
             $table .= '</tr>';
             foreach ($details as $value) {
-                $base_path = isset($value['path']['base']) ? $value['path']['base'] : '';
+                $base_path = $value['path']['base'] ?? '';
                 $table .= '<tr>';
                 $table .= "<td height='40'>".$base_path.'</td>';
                 $table .= "<td height='40'>".date('F d, Y H:i', $value['itime']).'</td>';

@@ -11,7 +11,7 @@ function webuzo_add_domain($host=null, $user=null, $pass=null)
 {
     include_once __DIR__.'/webuzo_sdk.php';
     add_output('<h2>Add Domain</h2>');
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     if (isset($GLOBALS['tf']->variables->request['domain']) && verify_csrf_referrer(__LINE__, __FILE__)) {
         $service = get_service($vps_id, 'vps');
         $db = get_module_db('vps');

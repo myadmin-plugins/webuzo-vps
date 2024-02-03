@@ -29,7 +29,7 @@ function webuzo_install_sysapp($host, $user, $pass, $app_id)
         if (isset($app_id)) {
             $GLOBALS['tf']->variables->request['submitbutton'] = 'Remove';
         }
-        $app_id = isset($app_id) ? $app_id : $GLOBALS['tf']->variables->request['soft'];
+        $app_id ??= $GLOBALS['tf']->variables->request['soft'];
         $new = new Webuzo_API($user, $pass, $host);
         if ($GLOBALS['tf']->variables->request['submitbutton'] === 'Install') {
             $res = $new->install_app($app_id);

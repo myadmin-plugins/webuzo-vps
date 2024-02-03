@@ -12,7 +12,7 @@ function webuzo_view_sysapps($host = null, $user = null, $pass = null, $app_id =
 {
     include_once __DIR__.'/webuzo_sdk.php';
     add_output('<h2>Application Details</h2>');
-    $vps_id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $new = new Webuzo_API($user, $pass, $host);
     $res = $new->list_apps();
     $response = $new->apps;

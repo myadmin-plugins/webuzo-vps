@@ -4,7 +4,7 @@
 function webuzo_scripts()
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $id = isset($GLOBALS['tf']->variables->request['vps_id']) ? $GLOBALS['tf']->variables->request['vps_id'] : '';
+    $id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
     $service = get_service($id, 'vps');
     $db = get_module_db('vps');
     $query = "select * from history_log where history_owner = '{$service['vps_custid']}' and history_old_value = 'Webuzo Details'";
@@ -26,17 +26,17 @@ function webuzo_scripts()
         myadmin_log('vps', 'info', 'Webuzo script Installation initialising install script id-'.$script_id, __LINE__, __FILE__);
 
 
-        $data['softdomain'] = isset($GLOBALS['tf']->variables->request['softdomain']) ? $GLOBALS['tf']->variables->request['softdomain'] : $host; // OPTIONAL - By Default the primary domain will be used
-        $data['softdirectory'] = isset($GLOBALS['tf']->variables->request['softdirectory']) ? $GLOBALS['tf']->variables->request['softdirectory'] : ''; // OPTIONAL - By default it will be installed in the /public_html folder
-        $data['admin_pass'] = isset($GLOBALS['tf']->variables->request['admin_pass']) ? $GLOBALS['tf']->variables->request['admin_pass'] : 'pass';
-        $data['admin_email'] = isset($GLOBALS['tf']->variables->request['admin_email']) ? $GLOBALS['tf']->variables->request['admin_email'] : "admin@$host";
+        $data['softdomain'] = $GLOBALS['tf']->variables->request['softdomain'] ?? $host; // OPTIONAL - By Default the primary domain will be used
+        $data['softdirectory'] = $GLOBALS['tf']->variables->request['softdirectory'] ?? ''; // OPTIONAL - By default it will be installed in the /public_html folder
+        $data['admin_pass'] = $GLOBALS['tf']->variables->request['admin_pass'] ?? 'pass';
+        $data['admin_email'] = $GLOBALS['tf']->variables->request['admin_email'] ?? "admin@$host";
         //$data['softdb'] = 'wp222';
         //$data['dbusername'] = 'wp222';
         //$data['dbuserpass'] = 'wp222';
-        $data['site_name'] = isset($GLOBALS['tf']->variables->request['site_name']) ? $GLOBALS['tf']->variables->request['site_name'] : $softs[$script_id]['name'];
-        $data['admin_username'] = isset($GLOBALS['tf']->variables->request['admin_username']) ? $GLOBALS['tf']->variables->request['admin_username'] : 'admin';
+        $data['site_name'] = $GLOBALS['tf']->variables->request['site_name'] ?? $softs[$script_id]['name'];
+        $data['admin_username'] = $GLOBALS['tf']->variables->request['admin_username'] ?? 'admin';
         $data['language'] = 'en';
-        $data['site_desc'] = isset($GLOBALS['tf']->variables->request['site_desc']) ? $GLOBALS['tf']->variables->request['site_desc'] : $softs[$script_id]['desc'];
+        $data['site_desc'] = $GLOBALS['tf']->variables->request['site_desc'] ?? $softs[$script_id]['desc'];
 
         myadmin_log('vps', 'info', 'Webuzo script Installation data-'.json_encode($data), __LINE__, __FILE__);
         $res = $new->install($script_id, $data); // 26 is the SCRIPT ID for Wordpress
@@ -105,7 +105,7 @@ function webuzo_scripts()
         }
         add_output('<br /><br /><a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_view_script&script_id='.$script_id.'&vps_id='.$id.'" title="Back">Back</a>');
     } elseif (isset($GLOBALS['tf']->variables->request['action']) && !empty($GLOBALS['tf']->variables->request['action'])) {
-        $script_idd = isset($GLOBALS['tf']->variables->request['script_id']) ? $GLOBALS['tf']->variables->request['script_id'] : '';
+        $script_idd = $GLOBALS['tf']->variables->request['script_id'] ?? '';
         function_requirements($GLOBALS['tf']->variables->request['action']);
         $GLOBALS['tf']->variables->request['action']($host, $webuzo_user, $webuzo_password, $script_idd);
     } else {
