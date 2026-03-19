@@ -24,7 +24,7 @@
 		"minimum-stability": "dev"
 	},
 	"require": {
-		"php": ">=8.2",
+		"php": ">=7.4",
 		"ext-soap": "*",
 		"ext-curl": "*",
 		"symfony/event-dispatcher": "^5.0||^6.0||^7.0",
