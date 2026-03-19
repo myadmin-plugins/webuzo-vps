@@ -1,40 +1,46 @@
 {
 	"name": "detain/myadmin-webuzo-vps",
 	"type": "myadmin-plugin",
-	"description": "Webuzo handling plugin for MyAdmin",
+	"description": "Webuzo VPS management plugin for MyAdmin — provides integration with the Webuzo/Softaculous control panel API for automated script installation, domain management, backup operations, and system application provisioning on VPS servers.",
 	"keywords": [
-		"abuse",
+		"webuzo",
+		"vps",
+		"softaculous",
+		"myadmin",
+		"plugin",
+		"hosting",
 		"administration",
-		"spam"
+		"server-management"
 	],
 	"license": "LGPL-2.1-only",
 	"authors": [
 		{
 			"name": "Joe Huss",
-			"homepage": "https:\/\/my.interserver.net\/"
+			"homepage": "https://my.interserver.net/"
 		}
 	],
 	"config": {
-		"bin-dir": "vendor\/bin",
+		"bin-dir": "vendor/bin",
 		"minimum-stability": "dev"
 	},
 	"require": {
-		"php": ">=5.0.0",
+		"php": ">=8.2",
 		"ext-soap": "*",
-		"symfony/event-dispatcher": "^5.0@stable",
+		"ext-curl": "*",
+		"symfony/event-dispatcher": "^5.0||^6.0||^7.0",
 		"detain/myadmin-plugin-installer": "dev-master"
-    },
+	},
 	"require-dev": {
-		"phpunit/phpunit": "*",
-		"phpunit/phpunit-mock-objects": "*",
-		"vlucas/phpdotenv": "*",
-		"codeclimate/php-test-reporter": "dev-master",
-		"satooshi/php-coveralls": "*",
-		"codacy/coverage": "dev-master"
+		"phpunit/phpunit": "^9.6"
 	},
 	"autoload": {
 		"psr-4": {
 			"Detain\\MyAdminWebuzo\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Detain\\MyAdminWebuzo\\Tests\\": "tests/"
 		}
 	}
 }
