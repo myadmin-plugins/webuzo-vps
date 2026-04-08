@@ -24,7 +24,7 @@ if (!defined('WEBUZO')) {
     define('WEBUZO', 1);
 }
 
-include_once(dirname(__FILE__).'/sdk.php');
+include_once(dirname(__FILE__).'/../../../../include/webhosting/softaculous/sdk.php');
 
 ///////////////////////////////
 ///////// Webuzo API //////////

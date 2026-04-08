@@ -24,7 +24,7 @@ class SoftaculousSdkTest extends TestCase
 
     protected function setUp(): void
     {
-        require_once dirname(__DIR__) . '/src/sdk.php';
+        require_once dirname(__DIR__, 4) . '/include/webhosting/softaculous/sdk.php';
         $this->reflection = new ReflectionClass(Softaculous_SDK::class);
     }
 
@@ -66,7 +66,7 @@ class SoftaculousSdkTest extends TestCase
         $this->assertSame([], $sdk->data);
         $this->assertSame([], $sdk->scripts);
         $this->assertSame([], $sdk->iscripts);
-        $this->assertSame('serialize', $sdk->format);
+        $this->assertSame('json', $sdk->format);
     }
 
     /**
