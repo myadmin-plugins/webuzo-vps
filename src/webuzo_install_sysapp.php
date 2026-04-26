@@ -9,8 +9,8 @@
 function webuzo_install_sysapp($host, $user, $pass, $app_id)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    if (isset($GLOBALS['tf']->variables->request['submitbutton']) || $app_id) {
-        $vps_id = $GLOBALS['tf']->variables->request['vps_id'];
+    if (isset(\MyAdmin\App::variables()->request['submitbutton']) || $app_id) {
+        $vps_id = \MyAdmin\App::variables()->request['vps_id'];
         if (!$app_id) {
             $service = get_service($vps_id, 'vps');
             $db = get_module_db('vps');
@@ -27,18 +27,18 @@ function webuzo_install_sysapp($host, $user, $pass, $app_id)
         add_output('<h2>Application Details</h2>');
         include_once __DIR__.'/webuzo_sdk.php';
         if (isset($app_id)) {
-            $GLOBALS['tf']->variables->request['submitbutton'] = 'Remove';
+            \MyAdmin\App::variables()->request['submitbutton'] = 'Remove';
         }
-        $app_id ??= $GLOBALS['tf']->variables->request['soft'];
+        $app_id ??= \MyAdmin\App::variables()->request['soft'];
         $new = new Webuzo_API($user, $pass, $host);
-        if ($GLOBALS['tf']->variables->request['submitbutton'] === 'Install') {
+        if (\MyAdmin\App::variables()->request['submitbutton'] === 'Install') {
             $res = $new->install_app($app_id);
         } else {
             $res = $new->remove_app($app_id);
         }
         $result = myadmin_unstringify($res);
-        if (($GLOBALS['tf']->variables->request['submitbutton'] === 'Install' && $result['done']) || ($GLOBALS['tf']->variables->request['submitbutton'] === 'Remove' && !isset($result['error']))) {
-            $Outputstring = ($GLOBALS['tf']->variables->request['submitbutton'] === 'Install') ? 'Application is installed successfully!' : 'Application is removed successfully!';
+        if ((\MyAdmin\App::variables()->request['submitbutton'] === 'Install' && $result['done']) || (\MyAdmin\App::variables()->request['submitbutton'] === 'Remove' && !isset($result['error']))) {
+            $Outputstring = (\MyAdmin\App::variables()->request['submitbutton'] === 'Install') ? 'Application is installed successfully!' : 'Application is removed successfully!';
             add_output($Outputstring);
         } else {
             add_output('Error occurred!');

@@ -4,7 +4,7 @@
 function webuzo_scripts()
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
+    $id = \MyAdmin\App::variables()->request['vps_id'] ?? '';
     $service = get_service($id, 'vps');
     $db = get_module_db('vps');
     $query = "select * from history_log where history_owner = '{$service['vps_custid']}' and history_old_value = 'Webuzo Details'";
@@ -21,22 +21,22 @@ function webuzo_scripts()
     $new = new Webuzo_API($webuzo_user, $webuzo_password, $host);
     $new->list_installed_scripts();
     $softs = $new->iscripts;
-    if (isset($GLOBALS['tf']->variables->request['softsubmit']) && !empty($GLOBALS['tf']->variables->request['softsubmit']) && verify_csrf_referrer(__LINE__, __FILE__)) {
-        $script_id = $GLOBALS['tf']->variables->request['soft'];
+    if (isset(\MyAdmin\App::variables()->request['softsubmit']) && !empty(\MyAdmin\App::variables()->request['softsubmit']) && verify_csrf_referrer(__LINE__, __FILE__)) {
+        $script_id = \MyAdmin\App::variables()->request['soft'];
         myadmin_log('vps', 'info', 'Webuzo script Installation initialising install script id-'.$script_id, __LINE__, __FILE__);
 
 
-        $data['softdomain'] = $GLOBALS['tf']->variables->request['softdomain'] ?? $host; // OPTIONAL - By Default the primary domain will be used
-        $data['softdirectory'] = $GLOBALS['tf']->variables->request['softdirectory'] ?? ''; // OPTIONAL - By default it will be installed in the /public_html folder
-        $data['admin_pass'] = $GLOBALS['tf']->variables->request['admin_pass'] ?? 'pass';
-        $data['admin_email'] = $GLOBALS['tf']->variables->request['admin_email'] ?? "admin@$host";
+        $data['softdomain'] = \MyAdmin\App::variables()->request['softdomain'] ?? $host; // OPTIONAL - By Default the primary domain will be used
+        $data['softdirectory'] = \MyAdmin\App::variables()->request['softdirectory'] ?? ''; // OPTIONAL - By default it will be installed in the /public_html folder
+        $data['admin_pass'] = \MyAdmin\App::variables()->request['admin_pass'] ?? 'pass';
+        $data['admin_email'] = \MyAdmin\App::variables()->request['admin_email'] ?? "admin@$host";
         //$data['softdb'] = 'wp222';
         //$data['dbusername'] = 'wp222';
         //$data['dbuserpass'] = 'wp222';
-        $data['site_name'] = $GLOBALS['tf']->variables->request['site_name'] ?? $softs[$script_id]['name'];
-        $data['admin_username'] = $GLOBALS['tf']->variables->request['admin_username'] ?? 'admin';
+        $data['site_name'] = \MyAdmin\App::variables()->request['site_name'] ?? $softs[$script_id]['name'];
+        $data['admin_username'] = \MyAdmin\App::variables()->request['admin_username'] ?? 'admin';
         $data['language'] = 'en';
-        $data['site_desc'] = $GLOBALS['tf']->variables->request['site_desc'] ?? $softs[$script_id]['desc'];
+        $data['site_desc'] = \MyAdmin\App::variables()->request['site_desc'] ?? $softs[$script_id]['desc'];
 
         myadmin_log('vps', 'info', 'Webuzo script Installation data-'.json_encode($data), __LINE__, __FILE__);
         $res = $new->install($script_id, $data); // 26 is the SCRIPT ID for Wordpress
@@ -50,15 +50,15 @@ function webuzo_scripts()
                     '&act=software'.
                     "&soft=$script_id";
 
-        $post = array('softsubmit' => (isset($GLOBALS['tf']->variables->request['softsubmit'])) ? $GLOBALS['tf']->variables->request['softsubmit'] : '1',
-                      'softdomain' => (isset($GLOBALS['tf']->variables->request['softdomain'])) ? $GLOBALS['tf']->variables->request['softdomain'] : $host , // Must be a valid Domain
-                      'softdirectory' => (isset($GLOBALS['tf']->variables->request['softdirectory'])) ? $GLOBALS['tf']->variables->request['softdirectory'] : '',
-                      'admin_username' => (isset($GLOBALS['tf']->variables->request['admin_username'])) ? $GLOBALS['tf']->variables->request['admin_username'] : 'admin',
-                      'admin_pass' => (isset($GLOBALS['tf']->variables->request['admin_pass'])) ? $GLOBALS['tf']->variables->request['admin_pass'] : 'pass',
-                      'admin_email' => (isset($GLOBALS['tf']->variables->request['admin_email'])) ? $GLOBALS['tf']->variables->request['admin_email'] : "admin@$host",
+        $post = array('softsubmit' => (isset(\MyAdmin\App::variables()->request['softsubmit'])) ? \MyAdmin\App::variables()->request['softsubmit'] : '1',
+                      'softdomain' => (isset(\MyAdmin\App::variables()->request['softdomain'])) ? \MyAdmin\App::variables()->request['softdomain'] : $host , // Must be a valid Domain
+                      'softdirectory' => (isset(\MyAdmin\App::variables()->request['softdirectory'])) ? \MyAdmin\App::variables()->request['softdirectory'] : '',
+                      'admin_username' => (isset(\MyAdmin\App::variables()->request['admin_username'])) ? \MyAdmin\App::variables()->request['admin_username'] : 'admin',
+                      'admin_pass' => (isset(\MyAdmin\App::variables()->request['admin_pass'])) ? \MyAdmin\App::variables()->request['admin_pass'] : 'pass',
+                      'admin_email' => (isset(\MyAdmin\App::variables()->request['admin_email'])) ? \MyAdmin\App::variables()->request['admin_email'] : "admin@$host",
                       'language' => 'en',
-                      'site_name' => (isset($GLOBALS['tf']->variables->request['site_name'])) ? $GLOBALS['tf']->variables->request['site_name'] : $softs[$script_id]['name'],
-                      'site_desc' =>  (isset($GLOBALS['tf']->variables->request['site_desc'])) ? $GLOBALS['tf']->variables->request['site_desc'] : $softs[$script_id]['desc']
+                      'site_name' => (isset(\MyAdmin\App::variables()->request['site_name'])) ? \MyAdmin\App::variables()->request['site_name'] : $softs[$script_id]['name'],
+                      'site_desc' =>  (isset(\MyAdmin\App::variables()->request['site_desc'])) ? \MyAdmin\App::variables()->request['site_desc'] : $softs[$script_id]['desc']
         );
 
         myadmin_log('vps', 'info', "Curl URL - ".$url,__LINE__,__FILE__);
@@ -104,15 +104,15 @@ function webuzo_scripts()
             add_output($error_details);
         }
         add_output('<br /><br /><a target="SERVICEFrame1" href="iframe.php?choice=none.webuzo_scripts&action=webuzo_view_script&script_id='.$script_id.'&vps_id='.$id.'" title="Back">Back</a>');
-    } elseif (isset($GLOBALS['tf']->variables->request['action']) && !empty($GLOBALS['tf']->variables->request['action'])) {
-        $script_idd = $GLOBALS['tf']->variables->request['script_id'] ?? '';
-        function_requirements($GLOBALS['tf']->variables->request['action']);
-        $GLOBALS['tf']->variables->request['action']($host, $webuzo_user, $webuzo_password, $script_idd);
+    } elseif (isset(\MyAdmin\App::variables()->request['action']) && !empty(\MyAdmin\App::variables()->request['action'])) {
+        $script_idd = \MyAdmin\App::variables()->request['script_id'] ?? '';
+        function_requirements(\MyAdmin\App::variables()->request['action']);
+        \MyAdmin\App::variables()->request['action']($host, $webuzo_user, $webuzo_password, $script_idd);
     } else {
         add_output('<h2>List of Available Softwares</h2>');
         $search_string = '';
-        if (isset($GLOBALS['tf']->variables->request['search_script']) && !empty($GLOBALS['tf']->variables->request['search_script']) && verify_csrf_referrer(__LINE__, __FILE__)) {
-            $search_string = $GLOBALS['tf']->variables->request['search_script'];
+        if (isset(\MyAdmin\App::variables()->request['search_script']) && !empty(\MyAdmin\App::variables()->request['search_script']) && verify_csrf_referrer(__LINE__, __FILE__)) {
+            $search_string = \MyAdmin\App::variables()->request['search_script'];
             $softfilter = $softs;
             $softs = null;
             if (!empty($softfilter)) {
@@ -151,15 +151,15 @@ function webuzo_scripts()
 			</style>
 		';
         add_output($filterlinks);
-        if (isset($GLOBALS['tf']->variables->request['filter']) && empty($softs)) {
+        if (isset(\MyAdmin\App::variables()->request['filter']) && empty($softs)) {
             add_output('No Softwares found!');
-        } elseif (!isset($GLOBALS['tf']->variables->request['filter']) && empty($softs)) {
+        } elseif (!isset(\MyAdmin\App::variables()->request['filter']) && empty($softs)) {
             add_output('Installation in progress... Building application database.');
         }
-        if (isset($GLOBALS['tf']->variables->request['filter'])) {
+        if (isset(\MyAdmin\App::variables()->request['filter'])) {
             if (!empty($softs)) {
                 foreach ($softs as $soft_id => $soft_det) {
-                    if ($soft_det['type'] === $GLOBALS['tf']->variables->request['filter']) {
+                    if ($soft_det['type'] === \MyAdmin\App::variables()->request['filter']) {
                         $soft_cat[$soft_det['cat']][$soft_id] = $soft_det;
                     }
                 }

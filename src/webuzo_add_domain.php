@@ -11,8 +11,8 @@ function webuzo_add_domain($host=null, $user=null, $pass=null)
 {
     include_once __DIR__.'/webuzo_sdk.php';
     add_output('<h2>Add Domain</h2>');
-    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
-    if (isset($GLOBALS['tf']->variables->request['domain']) && verify_csrf_referrer(__LINE__, __FILE__)) {
+    $vps_id = \MyAdmin\App::variables()->request['vps_id'] ?? '';
+    if (isset(\MyAdmin\App::variables()->request['domain']) && verify_csrf_referrer(__LINE__, __FILE__)) {
         $service = get_service($vps_id, 'vps');
         $db = get_module_db('vps');
         $query = "select * from history_log where history_owner = '{$service['vps_custid']}' and history_old_value = 'Webuzo Details'";
@@ -24,8 +24,8 @@ function webuzo_add_domain($host=null, $user=null, $pass=null)
                 $pass = $db->Record['history_new_value'];
             }
         }
-        $domain = $GLOBALS['tf']->variables->request['domain'];
-        $domain_path = $GLOBALS['tf']->variables->request['domain_path'];
+        $domain = \MyAdmin\App::variables()->request['domain'];
+        $domain_path = \MyAdmin\App::variables()->request['domain_path'];
         $new = new Webuzo_API($user, $pass, $host);
         $res = $new->add_domain($domain, $domain_path);
         $res = myadmin_unstringify($res);

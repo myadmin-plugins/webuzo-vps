@@ -7,8 +7,8 @@
 function webuzo_configure($id)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    if (isset($GLOBALS['tf']->variables->request['vps_id'])) {
-        $id = $GLOBALS['tf']->variables->request['vps_id'];
+    if (isset(\MyAdmin\App::variables()->request['vps_id'])) {
+        $id = \MyAdmin\App::variables()->request['vps_id'];
     }
     $service = get_service($id, 'vps');
     if (!$id) {
@@ -19,7 +19,7 @@ function webuzo_configure($id)
     $logo_update_resp = webuzo_update_logo($service['vps_ip']);
     $msg = (!empty($logo_update_resp)) ? 'Title change is completed successfully!' : 'Failed! Title change is not completed failed';
     myadmin_log('vps', 'info', $msg, __LINE__, __FILE__);
-    $email = $GLOBALS['tf']->accounts->cross_reference($service['vps_custid']);
+    $email = \MyAdmin\App::accounts()->cross_reference($service['vps_custid']);
     $ns1 = 'cdns1.interserver.net';
     $ns2 = 'cdns2.interserver.net';
 
@@ -62,17 +62,17 @@ function webuzo_configure($id)
 
     if (isset($res['done'])) {
         if ($db->num_rows() == 0) {
-            $GLOBALS['tf']->history->add('vps', 'webuzo_pass', $pass, 'Webuzo Details');
+            \MyAdmin\App::history()->add('vps', 'webuzo_pass', $pass, 'Webuzo Details');
             myadmin_log('vps', 'info', "Webuzo password added to history_log successfully! for {$email} for vps id {$service['vps_ip']}", __LINE__, __FILE__);
         } else {
             $data['history_new_value'] = $pass;
             $db->next_record(MYSQL_ASSOC);
             $history_id = $db->Record['history_id'];
-            $GLOBALS['tf']->history->update($history_id, $data);
+            \MyAdmin\App::history()->update($history_id, $data);
             myadmin_log('vps', 'info', "Webuzo password updated to history_log id - {$history_id} successfully! for {$email} for vps id {$service['vps_ip']}", __LINE__, __FILE__);
         }
         $url = 'https://my.interserver.net/index.php?choice=none.view_vps&id='.$id;
-        $data = $GLOBALS['tf']->accounts->read($service['vps_custid']);
+        $data = \MyAdmin\App::accounts()->read($service['vps_custid']);
         $smartyE = new TFSmarty();
         $smartyE->assign('name', $data['name']);
         $smartyE->assign('vps_url', $url);

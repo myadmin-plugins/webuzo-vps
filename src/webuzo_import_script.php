@@ -9,18 +9,18 @@
 function webuzo_import_script($host, $user, $pass, $script_id)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
-    if (isset($GLOBALS['tf']->variables->request['soft'])) {
-        $host = $GLOBALS['tf']->variables->request['host'] ?? '';
-        $user = $GLOBALS['tf']->variables->request['user'] ?? '';
-        $pass = $GLOBALS['tf']->variables->request['pass'] ?? '';
-        $script_id = $GLOBALS['tf']->variables->request['soft'];
+    $vps_id = \MyAdmin\App::variables()->request['vps_id'] ?? '';
+    if (isset(\MyAdmin\App::variables()->request['soft'])) {
+        $host = \MyAdmin\App::variables()->request['host'] ?? '';
+        $user = \MyAdmin\App::variables()->request['user'] ?? '';
+        $pass = \MyAdmin\App::variables()->request['pass'] ?? '';
+        $script_id = \MyAdmin\App::variables()->request['soft'];
         $act = 'import';
         $last_params = "&soft=$script_id";
         $post = [
-            'softsubmit'    => $GLOBALS['tf']->variables->request['softsubmit'],
-            'softdomain'    =>$GLOBALS['tf']->variables->request['softdomain'],
-            'softdirectory' =>$GLOBALS['tf']->variables->request['softdirectory']
+            'softsubmit'    => \MyAdmin\App::variables()->request['softsubmit'],
+            'softdomain'    =>\MyAdmin\App::variables()->request['softdomain'],
+            'softdirectory' =>\MyAdmin\App::variables()->request['softdirectory']
         ];
         function_requirements('webuzo_api_call');
         $response = webuzo_api_call($host, $user, $pass, $act, $last_params, $post);

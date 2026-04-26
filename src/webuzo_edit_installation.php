@@ -11,9 +11,9 @@
 function webuzo_edit_installation($host, $user, $pass, $installation_id)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
-    if (isset($GLOBALS['tf']->variables->request['installation_id'])) {
-        $installation_id = $GLOBALS['tf']->variables->request['installation_id'];
+    $vps_id = \MyAdmin\App::variables()->request['vps_id'] ?? '';
+    if (isset(\MyAdmin\App::variables()->request['installation_id'])) {
+        $installation_id = \MyAdmin\App::variables()->request['installation_id'];
     }
     $act = 'editdetail';
     $last_params = "&insid=$installation_id";
@@ -21,7 +21,7 @@ function webuzo_edit_installation($host, $user, $pass, $installation_id)
     $response = webuzo_api_call($host, $user, $pass, $act, $last_params);
     $response = myadmin_unstringify($response);
     add_output('<h2>Edit Installation Details</h2>');
-    if (isset($GLOBALS['tf']->variables->request['editins']) && verify_csrf_referrer(__LINE__, __FILE__)) {
+    if (isset(\MyAdmin\App::variables()->request['editins']) && verify_csrf_referrer(__LINE__, __FILE__)) {
         $service = get_service($vps_id, 'vps');
         $db = get_module_db('vps');
         $query = "select * from history_log where history_owner = '{$service['vps_custid']}' and history_old_value = 'Webuzo Details'";
@@ -34,13 +34,13 @@ function webuzo_edit_installation($host, $user, $pass, $installation_id)
             }
         }
         $post = [
-            'editins'     => $GLOBALS['tf']->variables->request['editins'],
-            'edit_dir'    => $GLOBALS['tf']->variables->request['edit_dir'], // Must be the path to installation
-            'edit_url'    => $GLOBALS['tf']->variables->request['edit_url'], // Must be the URL to installation
-            'edit_dbname' => $GLOBALS['tf']->variables->request['edit_dbname'],
-            'edit_dbuser' => $GLOBALS['tf']->variables->request['edit_dbuser'],
-            'edit_dbpass' => $GLOBALS['tf']->variables->request['edit_dbpass'],
-            'edit_dbhost' => $GLOBALS['tf']->variables->request['edit_dbhost']
+            'editins'     => \MyAdmin\App::variables()->request['editins'],
+            'edit_dir'    => \MyAdmin\App::variables()->request['edit_dir'], // Must be the path to installation
+            'edit_url'    => \MyAdmin\App::variables()->request['edit_url'], // Must be the URL to installation
+            'edit_dbname' => \MyAdmin\App::variables()->request['edit_dbname'],
+            'edit_dbuser' => \MyAdmin\App::variables()->request['edit_dbuser'],
+            'edit_dbpass' => \MyAdmin\App::variables()->request['edit_dbpass'],
+            'edit_dbhost' => \MyAdmin\App::variables()->request['edit_dbhost']
         ];
 
         $response_update = webuzo_api_call($host, $user, $pass, $act, $last_params, $post);

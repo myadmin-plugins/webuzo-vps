@@ -10,16 +10,16 @@
 function webuzo_list_sysapps($host=null, $user=null, $pass=null)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
-    $user = $GLOBALS['tf']->variables->request['user'] ?? $user;
-    $pass = $GLOBALS['tf']->variables->request['pass'] ?? $pass;
-    $host = $GLOBALS['tf']->variables->request['host'] ?? $host;
+    $vps_id = \MyAdmin\App::variables()->request['vps_id'] ?? '';
+    $user = \MyAdmin\App::variables()->request['user'] ?? $user;
+    $pass = \MyAdmin\App::variables()->request['pass'] ?? $pass;
+    $host = \MyAdmin\App::variables()->request['host'] ?? $host;
     $new = new Webuzo_API($user, $pass, $host);
     $res= $new->list_apps();
     $response = $new->apps;
     $search_string = '';
-    if (isset($GLOBALS['tf']->variables->request['search_script']) && !empty($GLOBALS['tf']->variables->request['search_script']) && verify_csrf_referrer(__LINE__, __FILE__)) {
-        $search_string = $GLOBALS['tf']->variables->request['search_script'];
+    if (isset(\MyAdmin\App::variables()->request['search_script']) && !empty(\MyAdmin\App::variables()->request['search_script']) && verify_csrf_referrer(__LINE__, __FILE__)) {
+        $search_string = \MyAdmin\App::variables()->request['search_script'];
         $softfilter = $response;
         $response = null;
         if (!empty($softfilter)) {

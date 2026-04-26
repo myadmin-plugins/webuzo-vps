@@ -9,7 +9,7 @@
 function webuzo_remove_domain($host, $user, $pass, $domain_name)
 {
     include_once __DIR__.'/webuzo_sdk.php';
-    $vps_id = $GLOBALS['tf']->variables->request['vps_id'] ?? '';
+    $vps_id = \MyAdmin\App::variables()->request['vps_id'] ?? '';
     add_output('<h2>Delete Domain</h2>');
 
     $new = new Webuzo_API($user, $pass, $host);
