@@ -3,7 +3,7 @@
 // --------------------------------------------------------------------------------
 // Softaculous - Softaculous Development Kit
 // --------------------------------------------------------------------------------
-// // http://www.softaculous.com
+// // https://www.softaculous.com
 // --------------------------------------------------------------------------------
 //
 // Description :
@@ -20,9 +20,12 @@ if (!defined('SOFTACULOUS')) {
 /*
 ** Softaculous SDK
 ** Refer the following guide for examples :
-** http://www.softaculous.com/docs/SDK
+** https://www.softaculous.com/docs/SDK
 */
 
+/**
+ * Class Softaculous_SDK
+ */
 class Softaculous_SDK
 {
     // The Login URL
@@ -42,7 +45,10 @@ class Softaculous_SDK
     public $cookie;
 
     // Response Format [serialize] [xml] [json]
-    public $format = 'serialize';
+    //public $format = 'serialize';
+    public $format = 'json';
+
+    public $userpass = '';
 
     /**
      * A Function to Login with Softaculous Parameters.
@@ -51,16 +57,18 @@ class Softaculous_SDK
      * @author       Jigar Dhulla
      * @param        string $url URL of which response is needed
      * @param        array $post POST DATA
-     * @return       string $resp Response of URL
-     * @since     	 4.1.3
+     * @param array $cookies
+     * @param bool $header
+     * @return string $resp Response of URL
+     * @since         4.1.3
      */
-    public function curl($url, $post = [], $cookies = [], $header = 0)
+    public function curl($url, $post = [], $cookies = [], $header = false)
     {
 
         // Set the curl parameters.
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, 0);
 
         // Turn off the server and peer verification (TrustManager Concept).
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -72,6 +80,9 @@ class Softaculous_SDK
         if (!empty($post)) {
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+        }
+        if ($this->userpass != '') {
+            curl_setopt($ch, CURLOPT_USERPWD, "{$this->userpass}");
         }
 
         // Is there a Cookie
@@ -96,7 +107,6 @@ class Softaculous_SDK
         }
 
         curl_close($ch);
-
         return $resp;
     }
 
@@ -116,12 +126,24 @@ class Softaculous_SDK
 
         $tmp_url = parse_url($url);
         // This is to set the cookie for Directadmin
-        if ($tmp_url['port'] == '2222' && empty($this->cookie)) {
+        if (isset($tmp_url['port']) && $tmp_url['port'] == '2222' && empty($this->cookie)) {
             $cmd_login = $tmp_url['scheme'].'://'.$tmp_url['host'].':'.$tmp_url['port'].'/CMD_LOGIN';
-
-            $cmd_post = ['username' => $tmp_url['user'],
+            if ($this->userpass != '') {
+                $username = mb_substr($this->userpass, 0, mb_strpos($this->userpass, ':'));
+                $password = mb_substr($this->userpass, mb_strpos($this->userpass, ':'));
+                error_log("Softaculous SDK curl_call parsed username {$username} password {$password}");
+                $cmd_post = [
+                    'username' => $username,
+                    'password' => $password,
+                    'referer'  => '/',
+                ];
+            } else {
+                $cmd_post = [
+                    'username' => $tmp_url['user'],
                     'password' => $tmp_url['pass'],
-                    'referer' => '/'];
+                    'referer'  => '/',
+                ];
+            }
 
             $res = $this->curl($cmd_login, $cmd_post, [], 1);
 
@@ -136,15 +158,15 @@ class Softaculous_SDK
         }
 
         // Add the ?
-        if (!strstr($url, '?')) {
-            $url = $url.'?';
+        if (false === strpos($url, '?')) {
+            $url .= '?';
         }
 
         // Login Page with Softaculous Parameters
-        $url = $url.$act;
+        $url .= $act;
 
         // Set the API mode
-        if (!strstr($url, 'api=')) {
+        if (false === strpos($url, 'api=')) {
             $url = $url.'&api='.$this->format;
         }
 
@@ -169,14 +191,15 @@ class Softaculous_SDK
     }
 
     /**
-     * A Function that will INSTALL scripts. If the DATA is empty script information is retured
+     * A Function that will INSTALL scripts. If the DATA is empty script information is returned
      *
-     * @package		API
-     * @author		Jigar Dhulla
-     * @param		int $sid Script ID
-     * @param		array $data DATA to POST
-     * @return		string $resp Response of Action. Default: Serialize
-     * @since		4.1.3
+     * @package        API
+     * @author        Jigar Dhulla
+     * @param        int $sid Script ID
+     * @param        array $data DATA to POST
+     * @param array $autoinstall
+     * @return string $resp Response of Action. Default: Serialize
+     * @since        4.1.3
      */
     public function install($sid, $data = [], $autoinstall = [])
     {
@@ -202,7 +225,11 @@ class Softaculous_SDK
         }
 
         if (!empty($autoinstall)) {
-            $act = $act.'&autoinstall='.rawurlencode(base64_encode(serialize($autoinstall)));
+            if ($this->format == 'serialize') {
+                $act = $act.'&autoinstall='.rawurlencode(base64_encode(serialize($autoinstall)));
+            } else {
+                $act = $act.'&autoinstall='.rawurlencode(base64_encode(json_encode($autoinstall)));
+            }
         }
 
         // Submit Details
@@ -365,7 +392,7 @@ class Softaculous_SDK
      * @package		API
      * @author		Divij Satra
      * @param		string $download_file Backup File Name e.g webmail.376_48118.2013-01-23_23-11-41.tar.gz
-     * @param		string $path Path where Backup File wiil be saved e.g '/opt'
+     * @param		string $path Path where Backup File will be saved e.g '/opt'
      * @return		void
      * @since		4.1.9
      */
@@ -375,14 +402,14 @@ class Softaculous_SDK
         // Action for Backup
         $act = '&act=backups&download='.$download_file;
 
-        if (!empty($path)) {
+        if (null !== $path) {
             if (!is_dir($path)) {
-                echo "The path you provided does not exsists pleae check if the directory exsists";
+                echo 'The path you provided does not exist please check if the directory exists';
                 exit;
             } else {
-                $chk = substr($path, -1);
+                $chk = mb_substr($path, -1);
                 if ($chk != '/') {
-                    $path = $path.'/';
+                    $path .= '/';
                 }
             }
         } else {
@@ -391,14 +418,14 @@ class Softaculous_SDK
 
         $resp = $this->curl_call($act);
 
-        $fp = fopen($path.$download_file, 'w+');
+        $fp = fopen($path.$download_file, 'wb+');
 
         fwrite($fp, $resp);
 
         fclose($fp);
 
         // Get response from the server.
-        echo "File saved at ".$path.$download_file;
+        echo 'File saved at '.$path . $download_file;
     }
 
     /**
@@ -415,9 +442,14 @@ class Softaculous_SDK
 
         // Get response from the server.
         $resp = $this->curl_call('act=installations&showupdates='.$showupdates);
-
-        $_resp = unserialize($resp);
-
+        $file = $this->curl('http://api.softaculous.com/scripts.php?in='.$this->format);
+        if ($this->format == 'serialize') {
+            $_resp = unserialize($resp);
+        } elseif ($this->format == 'json') {
+            $_resp = json_decode($resp, true);
+        }
+        //if (!is_array($_resp) || !isset($_resp['installations']))
+        //myadmin_log('webhosting', 'info', "Softaculous->installations(" . ($showupdates == true ? 'true' : 'false') . ") returned: {$resp}", __LINE__, __FILE__);
         return $_resp['installations'];
     }
 
@@ -426,7 +458,7 @@ class Softaculous_SDK
      *
      * @package		API
      * @author		Jigar Dhulla
-     * @return		array $scripts List of Softaculous Scripts
+     * @return array|bool
      * @since		4.1.3
      */
     public function list_scripts()
@@ -436,9 +468,12 @@ class Softaculous_SDK
         }
 
         // Get response from the server.
-        $file = $this->curl('http://api.softaculous.com/scripts.php?in=serialize');
-
-        $this->scripts = unserialize($file);
+        $file = $this->curl('http://api.softaculous.com/scripts.php?in='.$this->format);
+        if ($this->format == 'serialize') {
+            $this->scripts = unserialize($file);
+        } elseif ($this->format == 'json') {
+            $this->scripts = json_decode($file, true);
+        }
 
         if (empty($this->scripts)) {
             $this->error[] = 'Scripts were not loaded.';
@@ -461,7 +496,11 @@ class Softaculous_SDK
 
         // Get response from the server.
         $resp = $this->curl_call('act=backups');
-        $resp = unserialize($resp);
+        if ($this->format == 'serialize') {
+            $resp = unserialize($resp);
+        } elseif ($this->format == 'json') {
+            $resp = json_decode($resp, true);
+        }
         return $resp['backups'];
     }
 
@@ -470,7 +509,7 @@ class Softaculous_SDK
      *
      * @package		API
      * @author		Jigar Dhulla
-     * @return		array $scripts List of Installed Softaculous Scripts
+     * @return array|bool
      * @since		4.1.3
      */
     public function list_installed_scripts()
@@ -481,8 +520,11 @@ class Softaculous_SDK
 
         // Get response from the server.
         $resp = $this->curl_call('');
-
-        $resp = unserialize(trim($resp));
+        if ($this->format == 'serialize') {
+            $resp = unserialize(trim($resp));
+        } elseif ($this->format == 'json') {
+            $resp = json_decode($resp, true);
+        }
 
         $this->iscripts = $resp['iscripts'];
 
@@ -509,128 +551,7 @@ class Softaculous_SDK
     }
 }
 
-// This is for backward compatiblity
+// This is for backward compatibility
 class Softaculous_API extends Softaculous_SDK
 {
 }
-
-////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Import Example ////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-
-/* <?php
-@set_time_limit(100);
-
-//Include Class
-include_once('sdk.php');
-
-$new = new Softaculous_SDK();
-
-// Login Page
-$new->login = 'https://user:password@domain.com:2083/frontend/paper_lantern/softaculous/index.live.php';
-if(isset($_POST['domain'])){
-    $data['softdomain'] = $_POST['domain']; // Domain Name
-}
-
-if(isset($_POST['directory'])){
-    $data['softdirectory'] = $_POST['directory']; // Directory of the installation
-}
-
-// Submit the details
-if(isset($_POST['submit'])){
-    $res = $new->import($_POST['scripts'], $data); // Import Function
-    $res = unserialize($res); // Unserialize the serialized array
-    if(!empty($res['done'])){
-        echo 'Imported';
-    }else{
-        print_r($res['error']); // Reason why Import was not successful
-    }
-}
-
-if(empty($res)){
-
-    //Get the list of scripts
-    $new->list_installed_scripts();
-
-    echo '<form action="" method="post">Select script you want to import : <select name="scripts">';
-    foreach($new->iscripts as $sk => $sv){
-        echo '<option value="'.$sk.'">'.$sv['name'].'</option>';
-    }
-    echo '</select><br />
-    <tr>
-        <td>Enter the Domain : <input type="text" name="domain" value=""></td>
-    <tr><br />
-    <tr>
-        <td>Enter the Directory : <input type="text" name="directory" value=""></td>
-    <tr><br/>
-    <input type="submit" name="submit" value="submit">
-    </form>';
-}
-
-?>*/
-
-////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////
-/////////////////////////// Install Example ////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-
-/* <?php
-@set_time_limit(100);
-
-include_once('sdk.php');
-
-$new = new Softaculous_SDK();
-$new->login = 'https://user:password@domain.com:2083/frontend/paper_lantern/softaculous/index.live.php';
-
-// Domain Name
-$data['softdomain'] = 'domain.com'; // OPTIONAL - By Default the primary domain will be used
-
-// The directory is relative to your domain and should not exist. e.g. To install at http://mydomain/dir/ just type dir. To install only in http://mydomain/ leave this empty.
-$data['softdirectory'] = 'wp887'; // OPTIONAL - By default it will be installed in the /public_html folder
-
-// Admin Username
-$data['admin_username'] = 'admin';
-
-// Admin Pass
-$data['admin_pass'] = 'pass';
-
-// Admin Email
-$data['admin_email'] = 'admin@domain.com';
-
-// Database
-$data['softdb'] = 'wp887';
-
-//Database User Name
-$data['dbusername'] = 'wp887';
-
-// DB User Pass
-$data['dbuserpass'] = 'wp887';
-
-// Language
-$data['language'] = 'en';
-
-// Site Name
-$data['site_name'] = 'Wordpess wp887';
-
-// Site Description
-$data['site_desc'] = 'WordPress API Test';
-
-// Response
-$res = $new->install(26, $data); // Will install WordPress(26 is its script ID)
-
-// Unserialize
-$res = unserialize($res);
-
-// Done/Error
-if(!empty($res['done'])){
-    echo 'Installed';
-}else{
-    echo 'Installation Failed<br/>';
-    if(!empty($res['error'])){
-        print_r($res['error']);
-    }
-}
-?>*/
-
-////////////////////////////////////////////////////////////////////////////

@@ -24,7 +24,13 @@ class SoftaculousSdkTest extends TestCase
 
     protected function setUp(): void
     {
-        require_once dirname(__DIR__, 4) . '/include/webhosting/softaculous/sdk.php';
+        // Go through the package's own loader rather than hard-coding a path out
+        // of the package. dirname(__DIR__, 4) only resolves when this package sits
+        // in a core checkout's vendor/detain/ directory, so the previous form made
+        // the whole class error out on a standalone clone. The loader prefers the
+        // core tree's canonical copy and falls back to the bundled one, which also
+        // guarantees the tests exercise the same copy webuzo_sdk.php loads.
+        require_once dirname(__DIR__) . '/src/softaculous_sdk_loader.php';
         $this->reflection = new ReflectionClass(Softaculous_SDK::class);
     }
 
