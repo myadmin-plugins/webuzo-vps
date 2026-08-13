@@ -1,6 +1,6 @@
 ---
 name: phpunit-tests
-description: Writes PHPUnit 9 tests following existing patterns in `tests/`. Uses `declare(strict_types=1)`, `ReflectionClass` for signature verification, data providers, and no external API calls. Use when user says 'add test', 'write tests', 'test coverage', or creates new `src/` files that need test coverage. Do NOT use for integration tests that require live API connections. NOTE: for a plugin's contract/behavioral tests (tests/ContractTest.php, the shared harness, composer myadmin:scaffold-tests) use the plugin-contract-tests skill instead — this skill's reflection-only guidance predates that harness.
+description: Writes PHPUnit 9 tests following existing patterns in `tests/`. Uses `declare(strict_types=1)`, `ReflectionClass` for signature verification, data providers, and no external API calls. Use when user says 'add test', 'write tests', 'test coverage', or creates new `src/` files that need test coverage. Do NOT use for integration tests that require live API connections. For a plugin's contract or behavioral tests (tests/ContractTest.php, the shared harness, composer myadmin:scaffold-tests) use the plugin-contract-tests skill instead — this skill's reflection-only guidance predates that harness.
 ---
 <!-- myadmin-contract-harness-notice -->
 > ### ⚠️ Read this before the rest of the file
