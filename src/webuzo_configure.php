@@ -46,7 +46,7 @@ function webuzo_configure($id)
 
     $new = new Webuzo_API($user, $pass, $service['vps_ip']);
     $res = $new->webuzo_configure($service['vps_ip'], $user, $email, $pass, $service['vps_hostname'], $ns1, $ns2, $license_key);
-    myadmin_log('vps', 'info', "webuzo_configure({$service['vps_ip']}, {$user}, {$email}, {$pass}, {$service['vps_hostname']}, {$ns1}, {$ns2}, {$license_key})", __LINE__, __FILE__);
+    myadmin_log('vps', 'info', "webuzo_configure({$service['vps_ip']}, {$user}, {$email}, [redacted], {$service['vps_hostname']}, {$ns1}, {$ns2}, [redacted])", __LINE__, __FILE__);
     $res = myadmin_unstringify($res);
     // Installing Apache , Mysql, PHP
     $install_lamp = ['125'=> 'Apache 2.4', '128' => 'Mysql 5.6', '124' => 'PHP 5.6'];

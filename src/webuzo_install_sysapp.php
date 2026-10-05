@@ -20,7 +20,7 @@ function webuzo_install_sysapp($host, $user, $pass, $app_id)
             $host = $service['vps_ip'];
             while ($db->next_record(MYSQL_ASSOC)) {
                 if (isset($db->Record['history_new_value'])) {
-                    $pass = $db->Record['history_new_value'];
+                    $pass = \Detain\MyAdminWebuzo\WebuzoSecrets::password($db->Record);   // opens a SecretBox envelope, plaintext unchanged
                 }
             }
         }

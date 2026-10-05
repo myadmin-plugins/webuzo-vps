@@ -15,7 +15,7 @@ function webuzo_scripts()
 
     while ($db->next_record(MYSQL_ASSOC)) {
         if (isset($db->Record['history_new_value'])) {
-            $webuzo_password = $db->Record['history_new_value'];
+            $webuzo_password = \Detain\MyAdminWebuzo\WebuzoSecrets::password($db->Record);   // opens a SecretBox envelope, plaintext unchanged
         }
     }
     $new = new Webuzo_API($webuzo_user, $webuzo_password, $host);

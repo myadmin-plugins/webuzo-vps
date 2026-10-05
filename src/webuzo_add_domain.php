@@ -21,7 +21,7 @@ function webuzo_add_domain($host=null, $user=null, $pass=null)
         $host = $service['vps_ip'];
         while ($db->next_record(MYSQL_ASSOC)) {
             if (isset($db->Record['history_new_value'])) {
-                $pass = $db->Record['history_new_value'];
+                $pass = \Detain\MyAdminWebuzo\WebuzoSecrets::password($db->Record);   // opens a SecretBox envelope, plaintext unchanged
             }
         }
         $domain = \MyAdmin\App::variables()->request['domain'];
